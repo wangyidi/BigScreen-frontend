@@ -1,18 +1,1065 @@
 <!DOCTYPE html>
 <html>
-	<head>
+
+<head>
+
+	<!--引入js-->
+	<script src='https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.js'></script>
+	<script type="text/javascript" src="./js/china.js"></script>
+	<script type="text/javascript" src="./js/world.js"></script>
+	<script src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+
+<body>
+	<div id='app'>
+		<div class='content'>
+			<div class='left_content'>
+				<div class='left_content1'>
+					公司总人数
+				</div>
+				<div class='left_content2'>
+					参训人数覆盖率
+				</div>
+				<div class='left_content3'>
+					新员工已参训人数
+				</div>
+				<div class='left_content4'>
+					<div id="mainworld" style="width:400px;height:200px"></div>
+				</div>
+			</div>
+
+			<div class='center_content'>
+				<div class='center_map'>
+					<div id="main" style="width:600px;height:400px"></div>
+				</div>
+
+				<div class='center_content2'>
+					<div class='scroll_1'>
+						<div class="box">
+							<div id="transverseRoll">
+								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index'>
+									<span style="color:#FF0000">{{item}}</span>
+								</div>
+						</div>
+						</div>
+					</div>
+
+					<div class='scroll_2'>
+						<div class="box">
+							<div id="transverseRoll2">
+								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index'>
+									<span style="color:#FF0000">{{item}}</span>
+								</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class='right_content'>
+				<div class='right_1'>
+					<div id="mainpie" style="width:400px;height:200px"></div>
+				</div>
+				<div class='right_2'>
+					<div id="mainbar" style="width:400px;height:200px"></div>
+				</div>
+				<div class='right_3'>
+					<p class='right_3_title'>课程种类分布情况</p>
+					<div class='right_3_center'>
+
+						<div class='one'></div>
+
+						<div class='two'></div>
+
+
+						<div class='three'></div>
+
+					</div>
+					<div class='right_3_bottom'>
+
+						<div class='four'></div>
+
+
+						<div class='five'></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+			scrollList:[
+				'黑龙江滚动文字一号',
+				'黑龙江滚动文字二号',
+				'黑龙江滚动文字三号',
+				'黑龙江滚动文字四号',
+				'黑龙江滚动文字五号',
+				'黑龙江滚动文字六号',
+				'黑龙江滚动文字七号',
+				'黑龙江滚动文字八号',
+				'黑龙江滚动文字九号',
+			]
+		},
+		created() {
+		},
+		mounted() {
+			this.drowMapworld()
+			this.drowmap()
+			this.drowpie()
+			this.drowbar()
+			this.startmarquee(20,20,1500);
+			this.endmarquee(20,20,1500);
+			this.getdata()
+		},
+		methods: {
+			drowbar() {
+				var myChartbar = echarts.init(document.getElementById('mainbar'));
+				optionbar = {
+					title: {
+						text: '覆盖人次增长率',
+						left: 'center'
+					},
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							crossStyle: {
+								color: '#999'
+							}
+						},
+						formatter: '{b0}<br /> {a0}:{c0}%'
+					},
+					grid: {
+						left: '60',
+
+						right: '50',
+						bottom: '40'
+					},
+
+					xAxis: [
+						{
+							type: 'category',
+							data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+							axisPointer: {
+								type: 'shadow'
+							},
+							axisLabel:{interval: 0}
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							name: '',
+							min: 0,
+							max: 100,
+							interval: 20,
+							axisLabel: {
+								formatter: '{value}%'
+							}
+						},
+						{
+							type: 'value',
+							name: '',
+							min: 0,
+							max: 25,
+							interval: 0,
+
+						}
+					],
+					series: [
+
+						{
+							name: '覆盖人次增长率',
+							type: 'line',
+							data: [20, 22, 33, 45, 63, 10.2, 20.3, 30, 23, 66, 76, 82]
+						}
+					]
+				};
+				myChartbar.setOption(optionbar)
+			},
+			drowpie() {
+				var myChartpie = echarts.init(document.getElementById('mainpie'));
+				// 多系列无法定位
+
+				var colors = [{
+					type: 'linear',
+					x: 0, x2: 1, y: 0, y2: 0,
+					colorStops: [{
+						offset: 0,
+						color: '#27f7fa'
+					}, {
+						offset: 0.5,
+						color: '#27f7fa'
+					}, {
+						offset: 0.5,
+						color: '#23c3e2dd'
+					}, {
+						offset: 1,
+						color: '#23c3e2dd'
+					}]
+				}, {
+					type: 'linear',
+					x: 0, x2: 1, y: 0, y2: 0,
+					colorStops: [{
+						offset: 0,
+						color: '#7153d3aa'
+					}, {
+						offset: 0.5,
+						color: '#7153d3aa'
+					}, {
+						offset: 0.5,
+						color: '#352a6b'
+					}, {
+						offset: 1,
+						color: '#352a6b'
+					}]
+				}];
+
+
+				var barWidth = 30;
+
+				optionpie = {
+					title: {
+						text: '覆盖人次增长率',
+						left: 'center'
+					},
+					grid: {
+						left: '60',
+
+						right: '50',
+						bottom: '40'
+					},
+					xAxis: {
+						data: ['营销体系', '服务体系', '技术体系', '供应量']
+					},
+					yAxis: {
+						axisLabel: {
+							formatter: '{value}%',
+							color: '#000',
+							textStyle: {
+								fontSize: 12
+							},
+						},
+					},
+					series: [{
+						z: 1,
+						type: 'bar',
+						barWidth: barWidth,
+						data: [22, 12, 19, 34, 90, 30, 30],
+						itemStyle: {
+							normal: {
+								color: colors[1]
+							}
+						},
+					}, {
+						z: 2,
+						name: '底部',
+						type: 'pictorialBar',
+						data: [1, 1, 1, 1, 1, 1, 1],
+						symbol: 'diamond',
+						symbolOffset: [0, '50%'],
+						symbolSize: [barWidth, 10],
+						itemStyle: {
+							normal: {
+								color: colors[1]
+							}
+						},
+					}, {
+						z: 3,
+						name: '上部1',
+						type: 'pictorialBar',
+						symbolPosition: 'end',
+						data: [22, 12, 19, 34, 90, 30, 30],
+						symbol: 'diamond',
+						symbolOffset: [0, '-50%'],
+						symbolSize: [barWidth - 4, 10 * (barWidth - 4) / barWidth],
+						itemStyle: {
+							normal: {
+								borderColor: '#7153d3',
+								borderWidth: 2,
+								color: '#352a6b'
+							}
+						},
+					}]
+				};
+				myChartpie.setOption(optionpie);
+			},
+			drowMapworld() {
+				var myChartworld = echarts.init(document.getElementById('mainworld'));
+
+				optionworld = {
+					backgroundColor: '#fff',
+					geo: {
+						map: 'world',
+						label: {
+
+							emphasis: {
+								show: true,
+								color: '#fff'
+							}
+						},
+						roam: true,
+						itemStyle: {
+							normal: {
+								areaColor: 'rgba(0, 26, 45, 0.4)',
+								borderColor: '#3697AD',
+								borderWidth: 1,
+								shadowColor: '#3697AD',
+								shadowBlur: 30
+							},
+							emphasis: {
+								areaColor: '#2a333d'
+							}
+						},
+						regions: []
+					},
+					series: [{
+						type: 'effectScatter',
+						coordinateSystem: 'geo',
+						zlevel: 2,
+						symbolSize: 10,
+						rippleEffect: {
+							brushType: 'stroke',
+							scale: 5,
+							period: 8
+						},
+						itemStyle: {
+							normal: {
+								color: '#44FCF7'
+							}
+						},
+						data: []
+					}]
+				};
+
+
+				myChartworld.setOption(optionworld);
+
+
+
+				const AnimateCtrl = function () {
+					this.data = {
+						listData: [
+							{ 'name': '约翰内斯堡', 'value': [28.047305, -26.204103], country: 'South Africa' },
+							{ 'name': '萨格勒布', 'value': [15.981919, 45.815008], country: 'Croatia' },
+							{ 'name': '斗湖', 'value': [117.538749, 4.1459], country: 'Malaysia' },
+							{ 'name': '马尼拉', 'value': [120.98453, 14.58865], country: 'Philippines' },
+							{ 'name': '中国香港', 'value': [114.186125, 22.293586], country: 'China' },
+						],
+						colors: ['#EEEC0D', '#E55125', '#5EA6FE', '#FC92F7', '#67D670', '#36FFF8']
+					}
+				}
+				AnimateCtrl.prototype = {
+					methods: function () {
+						const that = this;
+
+						// public
+						function startLoop() {
+							const listDataLen = that.data.listData.length;
+							let i = 0;
+							loop();
+							function loop() {
+								setTimeout(function () {
+									i++;
+									if (i >= listDataLen) {
+										i = 0;
+									}
+									const randomColor = getRandomColor();
+									optionworld['series'][0]['data'] = [{
+										...that.data.listData[i],
+										itemStyle: {
+											normal: {
+												color: randomColor
+											}
+										}
+									}];
+									optionworld['geo']['regions'] = [
+										{
+											name: that.data.listData[i]['country'],
+											itemStyle: {
+												normal: {
+													// areaColor: randomColor 
+													areaColor: 'skyblue'
+												}
+
+											}
+										}
+									];
+									myChartworld.setOption(optionworld, true);
+									loop();
+								}, 2000);
+							}
+						}
+
+						// private
+						function getRandomColor() {
+							return that.data.colors[Math.floor(Math.random() * that.data.colors.length)]
+						}
+
+						return {
+							startLoop: startLoop.bind(this)
+						}
+					},
+					init: function () {
+						this.methods().startLoop()
+					}
+				}
+				const g = new AnimateCtrl()
+				g.init()
+
+
+			},
+			drowmap() {
+				var that = this
+				var datajson=[
+					{ name: "北京", value: 199 ,lesson:['这里显示课程——北京','这里显示课程——北京','这里显示课程——北京']},
+					{ name: "吉林", value: 100 ,lesson:['这里显示课程——吉林','这里显示课程——吉林','这里显示课程——吉林']},
+					{ name: "黑龙江", value: 123 ,lesson:['这里显示课程——黑龙江','这里显示课程——黑龙江','这里显示课程——黑龙江']},
+					{ name: "上海", value: 24,lesson:['这里显示课程——上海','这里显示课程——上海','这里显示课程——上海']},
+					{ name: "新疆", value: 214,lesson:['这里显示课程——新疆','这里显示课程——新疆','这里显示课程——新疆']},
+				]
+
+				var myChart = echarts.init(document.getElementById('main'));
+
+				var mapName = 'china'
+				var data = [
+					{ name: "北京", value: 199 },
+					{ name: "天津", value: 42 },
+					{ name: "河北", value: 102 },
+					{ name: "山西", value: 81 },
+					{ name: "内蒙古", value: 47 },
+					{ name: "辽宁", value: 67 },
+					{ name: "吉林", value: 82 },
+					{ name: "黑龙江", value: 123 },
+					{ name: "上海", value: 24 },
+					{ name: "江苏", value: 92 },
+					{ name: "浙江", value: 114 },
+					{ name: "安徽", value: 109 },
+					{ name: "福建", value: 116 },
+					{ name: "江西", value: 91 },
+					{ name: "山东", value: 119 },
+					{ name: "河南", value: 137 },
+					{ name: "湖北", value: 116 },
+					{ name: "湖南", value: 114 },
+					{ name: "重庆", value: 91 },
+					{ name: "四川", value: 125 },
+					{ name: "贵州", value: 62 },
+					{ name: "云南", value: 83 },
+					{ name: "西藏", value: 9 },
+					{ name: "陕西", value: 80 },
+					{ name: "甘肃", value: 56 },
+					{ name: "青海", value: 10 },
+					{ name: "宁夏", value: 18 },
+					{ name: "新疆", value: 180 },
+					{ name: "广东", value: 123 },
+					{ name: "广西", value: 59 },
+					{ name: "海南", value: 14 },
+				];
+
+				var geoCoordMap = {};
+				var toolTipData = [
+					{ name: "北京", value: [{ name: "科技人才总数", value: 95 }, { name: "理科", value: 82 }] },
+					{ name: "天津", value: [{ name: "文科", value: 22 }, { name: "理科", value: 20 }] },
+					{ name: "河北", value: [{ name: "文科", value: 60 }, { name: "理科", value: 42 }] },
+					{ name: "山西", value: [{ name: "文科", value: 40 }, { name: "理科", value: 41 }] },
+					{ name: "内蒙古", value: [{ name: "文科", value: 23 }, { name: "理科", value: 24 }] },
+					{ name: "辽宁", value: [{ name: "文科", value: 39 }, { name: "理科", value: 28 }] },
+					{ name: "吉林", value: [{ name: "文科", value: 41 }, { name: "理科", value: 41 }] },
+					{ name: "黑龙江", value: [{ name: "文科", value: 35 }, { name: "理科", value: 31 }] },
+					{ name: "上海", value: [{ name: "文科", value: 12 }, { name: "理科", value: 12 }] },
+					{ name: "江苏", value: [{ name: "文科", value: 47 }, { name: "理科", value: 45 }] },
+					{ name: "浙江", value: [{ name: "文科", value: 57 }, { name: "理科", value: 57 }] },
+					{ name: "安徽", value: [{ name: "文科", value: 57 }, { name: "理科", value: 52 }] },
+					{ name: "福建", value: [{ name: "文科", value: 59 }, { name: "理科", value: 57 }] },
+					{ name: "江西", value: [{ name: "文科", value: 49 }, { name: "理科", value: 42 }] },
+					{ name: "山东", value: [{ name: "文科", value: 67 }, { name: "理科", value: 52 }] },
+					{ name: "河南", value: [{ name: "文科", value: 69 }, { name: "理科", value: 68 }] },
+					{ name: "湖北", value: [{ name: "文科", value: 60 }, { name: "理科", value: 56 }] },
+					{ name: "湖南", value: [{ name: "文科", value: 62 }, { name: "理科", value: 52 }] },
+					{ name: "重庆", value: [{ name: "文科", value: 47 }, { name: "理科", value: 44 }] },
+					{ name: "四川", value: [{ name: "文科", value: 65 }, { name: "理科", value: 60 }] },
+					{ name: "贵州", value: [{ name: "文科", value: 32 }, { name: "理科", value: 30 }] },
+					{ name: "云南", value: [{ name: "文科", value: 42 }, { name: "理科", value: 41 }] },
+					{ name: "西藏", value: [{ name: "文科", value: 5 }, { name: "理科", value: 4 }] },
+					{ name: "陕西", value: [{ name: "文科", value: 38 }, { name: "理科", value: 42 }] },
+					{ name: "甘肃", value: [{ name: "文科", value: 28 }, { name: "理科", value: 28 }] },
+					{ name: "青海", value: [{ name: "文科", value: 5 }, { name: "理科", value: 5 }] },
+					{ name: "宁夏", value: [{ name: "文科", value: 10 }, { name: "理科", value: 8 }] },
+					{ name: "新疆", value: [{ name: "文科", value: 36 }, { name: "理科", value: 31 }] },
+					{ name: "广东", value: [{ name: "文科", value: 63 }, { name: "理科", value: 60 }] },
+					{ name: "广西", value: [{ name: "文科", value: 29 }, { name: "理科", value: 30 }] },
+					{ name: "海南", value: [{ name: "文科", value: 8 }, { name: "理科", value: 6 }] },
+				];
+
+				/*获取地图数据*/
+				myChart.showLoading();
+				var mapFeatures = echarts.getMap(mapName).geoJson.features;
+				myChart.hideLoading();
+				mapFeatures.forEach(function (v) {
+					// 地区名称
+					var name = v.properties.name;
+					// 地区经纬度
+					geoCoordMap[name] = v.properties.cp;
+
+				});
+				
+				console.log(data)
+				console.log(toolTipData)
+				var max = 480,
+					min = 9; // todo 
+				var maxSize4Pin = 100,
+					minSize4Pin = 20;
+
+				var convertData = function (data) {
+					var res = [];
+					for (var i = 0; i < data.length; i++) {
+						var geoCoord = geoCoordMap[data[i].name];
+						if (geoCoord) {
+							res.push({
+								name: data[i].name,
+								value: geoCoord.concat(data[i].value),
+							});
+						}
+					}
+					return res;
+				};
+				console.log(convertData(data.sort(function (a, b) {
+					return b.value - a.value;
+				}).slice(0, 5)))
+				option = {
+
+
+					visualMap: {
+						show: true,
+						min: 0,
+						max: 200,
+						left: '10%',
+						top: 'bottom',
+						calculable: true,
+						seriesIndex: [1],
+						inRange: {
+							color: ['#04387b', '#467bc0'] // 蓝绿
+						}
+					},
+
+					tooltip: {
+						padding: 0,
+						enterable: true,
+						transitionDuration: 1,
+						textStyle: {
+							color: '#000',
+							decoration: 'none',
+						},
+						// position: function (point, params, dom, rect, size) {
+						//   return [point[0], point[1]];
+						// },
+						formatter: function(params) {
+							console.log(params)
+							var tipHtml = '';
+							tipHtml = '<div style="width:280px;height:200px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7);white-space:normal">'
+							+'<div style="width:100%;height:40px;line-height:40px;padding:0 20px">'+'<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">'+'</i>'
+							+'<span style="margin-left:10px;color:#fff;font-size:16px;">'+params.name+'</span>'+'</div>'
+							+'<div style="padding:20px">'
+							+'<p style="color:#fff;font-size:12px;" v-for="item in params.data.lesson">'+'<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">'+'</i>'
+							+'<span style="color:#11ee7d;margin:0 6px;">'+params.data.lesson+'</span>'+'</p>'
+							+'</div>'+'</div>';
+
+							return tipHtml;
+						}
+				
+					},
+
+
+					geo: {
+						show: true,
+						map: mapName,
+						label: {
+							normal: {
+								show: false
+							},
+							emphasis: {
+								show: false,
+							}
+						},
+						roam: false,
+						itemStyle: {
+							normal: {
+								areaColor: '#023677',
+								borderColor: '#1180c7',
+							},
+							emphasis: {
+								areaColor: '#4499d0',
+							}
+						}
+					},
+					series: [{
+						name: '散点',
+						type: 'scatter',
+						coordinateSystem: 'geo',
+						data: [],
+						label: {
+							normal: {
+								formatter: '{b}',
+								position: 'right',
+								show: false
+							},
+							emphasis: {
+								show: true
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#fff'
+							}
+						}
+					},
+
+					{
+						name: 'iphone4',
+						type: 'map',
+						mapType: 'china',
+						roam: false,
+						itemStyle: {
+							normal: {
+								label: {
+									show: false
+								},
+								borderColor: 'rgba(147, 235, 248, 1)',
+								borderWidth: 1,
+								areaColor: {
+									type: 'radial',
+									x: 0.5,
+									y: 0.5,
+									r: 0.8,
+									colorStops: [{
+										offset: 0,
+										color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+									}, {
+										offset: 1,
+										color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+									}],
+									globalCoord: false // 缺省为 false
+								},
+								shadowColor: 'rgba(128, 217, 248, 1)',
+								// shadowColor: 'rgba(255, 255, 255, 1)',
+								shadowOffsetX: -2,
+								shadowOffsetY: 2,
+								shadowBlur: 10
+							},
+							emphasis: {
+								label: {
+									show: true
+								}
+							}
+						},
+						data: datajson
+					},
+					{
+						name: '点',
+						type: 'scatter',
+						coordinateSystem: 'geo',
+						zlevel: 6,
+					},
+					{
+						name: 'Top 5',
+						type: 'effectScatter',
+						coordinateSystem: 'geo',
+						data: convertData(datajson.sort(function (a, b) {
+							return b.value - a.value;
+						}).slice(0, 5)),
+						symbolSize: function (val) {
+							return val[2] / 10;
+						},
+						showEffectOn: 'render',
+						rippleEffect: {
+							brushType: 'stroke'
+						},
+						hoverAnimation: true,
+						label: {
+							normal: {
+								formatter: '{b}',
+								position: 'right',
+								show: true
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: 'yellow',
+								shadowBlur: 10,
+								shadowColor: 'yellow'
+							}
+						},
+						zlevel: 1
+					},
+
+					]
+				};
+				var count = 0;
+				var timeTicket = null;
+				var dataLength = option.series[1].data.length; //循环轮播几个图
+				timeTicket && clearInterval(timeTicket);
+				timeTicket = setInterval(function () {
+					myChart.dispatchAction({
+						type: 'downplay',
+						seriesIndex: 1,
+					});
+					myChart.dispatchAction({
+						type: 'highlight',
+						seriesIndex: 1,
+						dataIndex: (count) % dataLength
+					});
+					myChart.dispatchAction({
+						type: 'showTip',
+						seriesIndex: 1,
+						dataIndex: (count) % dataLength
+					});
+					count++;
+				}, 1000);
+
+				myChart.on('mouseover', function (params) {
+					console.log(params)
+					clearInterval(timeTicket);
+					myChart.dispatchAction({
+						type: 'downplay',
+						seriesIndex: 1
+					});
+					myChart.dispatchAction({
+						type: 'highlight',
+						seriesIndex: 1,
+						dataIndex: params.dataIndex
+					});
+					myChart.dispatchAction({
+						type: 'showTip',
+						seriesIndex: 1,
+						dataIndex: params.dataIndex,
+					});
+				});
+				myChart.on('mouseout', function (params) {
+					timeTicket && clearInterval(timeTicket);
+					timeTicket = setInterval(function () {
+						myChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: 1,
+						});
+						myChart.dispatchAction({
+							type: 'highlight',
+							seriesIndex: 1,
+							dataIndex: (count) % dataLength
+						});
+						myChart.dispatchAction({
+							type: 'showTip',
+							seriesIndex: 1,
+							dataIndex: (count) % dataLength
+						});
+						count++;
+					}, 1000);
+				});
+				myChart.setOption(option);
+			},
+		 	startmarquee(lh,speed,delay) {//lh-高度，speed 时间，
+                var bFlag = false;
+                var timer = null;
+                var _timer = null;
+                var obj = document.getElementById("transverseRoll");//获取滚动元素
+                obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
+                obj.style.marginTop = 0;
+                obj.onmouseover=function(){ bFlag = true;}//鼠标移入
+                obj.onmouseout=function(){ bFlag = false;}//鼠标移出
+                function start(){
+                    clearInterval(timer);
+                    timer = setInterval(scrolling,speed);
+                    if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) - 1 + "px";
+                    console.log('setTimeout:',obj.style.marginTop);
+                }
+                function scrolling(){
+                    if(parseInt(obj.style.marginTop) % lh != 0){  
+                        obj.style.marginTop = parseInt(obj.style.marginTop) - 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
+                        if(Math.abs(parseInt(obj.style.marginTop)) >= obj.scrollHeight / 2 ) obj.style.marginTop = 0;
+                    }else{
+                        clearInterval(timer);
+                        clearTimeout(_timer);
+                        setTimeout(start,delay);
+                    }
+                }
+                clearTimeout(_timer);
+                setTimeout(start,delay);
+			},
+			endmarquee(lh,speed,delay) {//lh-高度，speed 时间，
+				var that = this
+                var bFlag = false;
+                var timer = null;
+                var _timer = null;
+                var obj = document.getElementById("transverseRoll2");//获取滚动元素
+				obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
+				obj.style.marginTop = - 20*that.scrollList.length +'px';
+				console.log(obj.style.marginTop)
+                obj.onmouseover=function(){ bFlag = true;}//鼠标移入
+                obj.onmouseout=function(){ bFlag = false;}//鼠标移出
+                function start(){
+                    clearInterval(timer);
+                    timer = setInterval(scrolling,speed);
+                    if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) + 1 + "px";
+                    console.log('setTimeout:',obj.style.marginTop);
+                }
+                function scrolling(){
 		
-		<!--引入css -->
-		<link rel="stylesheet" href="./css/bootstrap.min.css">   
-		 <!--引入js-->         
-		<script src="./js/jquery-3.5.1.min.js"></script>
-		<script src="./js/bootstrap.min.js"></script>
-		
-		<meta charset="utf-8" />
-		<title></title>
-	</head>
-	<body>
-		<input type="button" value="bootstrap样式" class="btn"/>
-		<input type="button" value="普通样式" />
-	</body>
+                    if(parseInt(obj.style.marginTop) % lh != 0){  
+                        obj.style.marginTop = parseInt(obj.style.marginTop) + 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
+                        if(Math.abs(parseInt(obj.style.marginTop))==0 ) obj.style.marginTop = - 20*that.scrollList.length +'px';
+                    }else{
+                        clearInterval(timer);
+                        clearTimeout(_timer);
+                        setTimeout(start,delay);
+                    }
+                }
+                clearTimeout(_timer);
+                setTimeout(start,delay);
+			},
+		getdata(){
+			$.ajax({
+                url: 'http://47.105.195.101:9090/getThirdPageData',
+                dataType: 'json',
+                method: 'post',
+                data: '',
+                success: function(data) {
+                    console.log(data)
+                }
+            })
+		}	
+		}
+
+	})
+</script>
+
+<style>
+	html,
+	body {
+		height: 100%
+	}
+
+	* {
+		margin: 0;
+		padding: 0
+	}
+
+	#app {
+		width: 100%;
+		height: 100%
+	}
+
+	.content {
+		padding: 20px 20px;
+		display: flex
+	}
+
+	.left_content {
+		width: 30%;
+
+	}
+
+	.center_content {
+		width: 40%;
+	}
+
+	.center_content2 {
+		height: 200px;
+		display: flex;
+		padding-left: 20px;
+		padding-right: 20px
+	}
+
+	.scroll_1{
+		flex: 1;
+		border: 1px solid #f00;
+
+	}
+
+	.scroll_2 {
+		flex: 1;
+		margin-left: 20px;
+		border: 1px solid #f00;
+	}
+
+	.right_content {
+		width: 30%;
+	}
+
+	.left_content1 {
+		height: 100px;
+		line-height: 100px;
+		text-align: center;
+		border: 1px solid #f00
+	}
+
+	.left_content2 {
+		height: 100px;
+		line-height: 100px;
+		margin-top: 50px;
+		text-align: center;
+		border: 1px solid #f00
+	}
+
+	.left_content3 {
+		height: 100px;
+		line-height: 100px;
+		margin-top: 50px;
+		text-align: center;
+		border: 1px solid #f00
+	}
+
+	.left_content4 {
+		height: 200px;
+		margin-top: 100px;
+		border: 1px solid #f00;
+	}
+
+	.center_map {
+		height: 485px;
+		padding: 10px
+	}
+
+	.right_1 {
+		height: 180px;
+		border: 1px solid #f00;
+		padding: 10px
+	}
+
+	.right_2 {
+		height: 180px;
+		border: 1px solid #f00;
+		margin-top: 50px;
+		padding: 10px
+	}
+
+	.right_3 {
+		height: 180px;
+		border: 1px solid #f00;
+		margin-top: 50px;
+		padding: 10px 10px 10px 10px
+	}
+
+	.right_3_title {
+		text-align: center;
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.right_3_center {
+		height: 60px;
+
+		margin-top: 10px;
+		position: relative;
+	}
+
+	.right_3_bottom {
+		height: 60px;
+
+		margin-top: 10px;
+		position: relative;
+	}
+
+	.one {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: green;
+		position: absolute;
+		left: 60px
+	}
+
+	.two {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		background: red;
+		position: absolute;
+		left: 160px
+	}
+
+	.three {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: gray;
+		position: absolute;
+		left: 300px
+	}
+
+	.four {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: blue;
+		position: absolute;
+		left: 100px
+	}
+
+	.five {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: orange;
+		position: absolute;
+		left: 260px
+	}
+
+	.el-carousel__item h3 {
+		color: #475669;
+		font-size: 14px;
+		opacity: 0.75;
+		line-height: 200px;
+		margin: 0;
+	}
+
+	.el-carousel__item:nth-child(2n) {
+		background-color: #99a9bf;
+	}
+
+	.el-carousel__item:nth-child(2n+1) {
+		background-color: #d3dce6;
+	}
+
+
+
+
+        .box{
+            margin:50px auto;
+            width:170px;
+            height:42px;
+            line-height:20px;
+            overflow:hidden;
+        }
+        .box .contentscroll{
+            list-style-type:none;
+            margin:0;padding:0;
+			width:100%;
+			text-align:center
+        }
+        /*系统支持ie8就选line-height:16px;，但不支持opera 否则选line-height:20px;*/
+        .box .contentscroll a{
+            font-size:12px; 
+            line-height:16px;
+        }
+
+
+		.box .contentscroll2{
+            list-style-type:none;
+            margin:0;padding:0;
+			width:100%;
+			text-align:center
+        }
+</style>
+
 </html>

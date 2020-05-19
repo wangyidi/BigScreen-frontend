@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<!--引入js-->
+	<script src='https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.js'></script>
+	<script type="text/javascript" src="./js/china.js"></script>
+	<script type="text/javascript" src="./js/world.js"></script>
+	<script src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<meta charset="utf-8" />
+	<title></title>
+</head>
+
+<body>
+	<div id='app'>
+        <div class='content'>
+            <div class='content_Top'>
+                <div class='echart_picture'>
+                        <div id="main1" style="width:400px;height:400px;"></div>
+                </div>
+                <div class='echart_picture'>
+                        <div id="main2" style="width:400px;height:400px;"></div>
+                </div>
+                <div class='echart_picture'>
+                        <div id="main3" style="width:400px;height:400px;"></div>
+                </div>
+            </div>
+            <div class='content_Bottom'>
+                <div class='echart_picture'>
+                        <div id="main4" style="width:400px;height:400px;"></div>
+                </div>
+                <div class='echart_picture'>
+                        <div id="main5" style="width:400px;height:400px;"></div>
+                </div>
+                <div class='echart_picture'>
+                        <div id="main6" style="width:400px;height:400px;"></div>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+
+<script>
+
+	var app = new Vue({
+		el: '#app',
+		data: {
+            list:'',
+		},
+		created() {
+		},
+		mounted() {
+            var that = this
+            this.getdata()
+		},
+		methods: {
+            //随机出两条数据
+            getRandomArrayElements(arr, count) {
+                var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
+                while (i-- > min) {
+                index = Math.floor((i + 1) * Math.random());
+                temp = shuffled[index];
+                shuffled[index] = shuffled[i];
+                shuffled[i] = temp;
+                }
+                return shuffled.slice(min);
+                },
+		getdata(){
+            var that = this
+			$.ajax({
+                url: 'http://47.105.195.101:9090/getThirdPageData',
+                dataType: 'json',
+                method: 'post',
+                data: '',
+                success: function(data) {
+                    console.log(data)
+                    that.list = data
+                    setInterval(function(){
+                        that.drowRight()
+                   },5000)
+                }
+            })
+        },
+        
+        drowRight(){
+            console.log(this.list)
+            var myChart3 = echarts.init(document.getElementById('main3'));
+            var myChart6 = echarts.init(document.getElementById('main6'));
+            var apartmentlist = this.list.SystemDataList.map(
+                function (value,index,arr) {  
+                    return value.depName 
+                }
+            )
+            var filterapartment = this.getRandomArrayElements(apartmentlist, 2)
+            console.log(filterapartment)
+
+
+            this.drowLeft(filterapartment)
+
+            var aaa = this.list.deptList.map(
+                function (value,index,arr) {  
+                    
+                    for(var i=0;i<filterapartment.length;i++){
+                        if(filterapartment[i]==value.depName){
+                            return value
+                        }
+                    } 
+                }
+            )
+            console.log(aaa)
+            var leftData=[]
+            for(var i=0;i<aaa.length;i++){
+                if(aaa[i]){
+                    leftData.push(aaa[i])
+                }
+            }
+            console.log(leftData)
+
+            var apartmentYear0 = leftData[0].recordList.map(
+                function (value,index,arr) {  
+                    return value.date 
+                }
+            )
+            var apartmentData0 = leftData[0].recordList.map(
+                function (value,index,arr) {  
+                    return value.sumNum 
+                }
+            )    
+
+            var apartmentYear1 = leftData[1].recordList.map(
+                function (value,index,arr) {  
+                    return value.date 
+                }
+            )
+            var apartmentData1 = leftData[1].recordList.map(
+                function (value,index,arr) {  
+                    return value.sumNum 
+                }
+            ) 
+            console.log(apartmentYear0,apartmentData0)
+            option3= {
+                title: {
+                    text: '一级部门参训数据',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentYear0,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: apartmentData0,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            return '#e5323e'
+                        }
+                        }
+                }]
+            };
+            myChart3.setOption(option3);
+
+            option6= {
+                title: {
+                    text: '一级部门参训数据',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentYear1,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: apartmentData1,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            return '#f2a93b'
+                        }
+                        }
+                }]
+            };
+            myChart6.setOption(option6);
+        },
+        drowLeft(datalist){
+            var systemlist1 = []
+            var systemlist2 = []
+            var systemlist3 = []
+            var systemlist4 = []
+            this.list.SystemDataList.map(
+                function (value,index,arr) {  
+                    if(value.system=='营销体系'){
+                        systemlist1.push(value)
+                    }
+                    else if(value.system=='服务体系'){
+                        systemlist2.push(value)
+                    }
+                    else if(value.system=='技术体系'){
+                        systemlist3.push(value)
+                    }
+                    else if(value.system=='供应链与支撑体系'){
+                        systemlist4.push(value)
+                    }
+                }
+            )
+            console.log(datalist)
+           
+
+            var apartmentSystem1 = systemlist1.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var persentSystem1  = systemlist1.map(
+                function (value,index,arr) {  
+                    return value.persent.slice(0,value.persent.length-1)
+                }
+            )   
+            
+            var apartmentSystem2 = systemlist2.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var persentSystem2  = systemlist2.map(
+                function (value,index,arr) {  
+                    return value.persent.slice(0,value.persent.length-1)
+                }
+            ) 
+
+            var apartmentSystem3 = systemlist3.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var persentSystem3  = systemlist3.map(
+                function (value,index,arr) {  
+                    return value.persent.slice(0,value.persent.length-1)
+                }
+            ) 
+
+            var apartmentSystem4 = systemlist4.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var persentSystem4  = systemlist4.map(
+                function (value,index,arr) {  
+                    return value.persent.slice(0,value.persent.length-1)
+                }
+            ) 
+            var myChart1 = echarts.init(document.getElementById('main1'));
+            var myChart2 = echarts.init(document.getElementById('main2'));
+            var myChart4 = echarts.init(document.getElementById('main4'));
+            var myChart5 = echarts.init(document.getElementById('main5'));
+            const curInt = datalist;
+            option1= {
+                title: {
+                    text: '营销体系',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentSystem1,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: persentSystem1,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            console.log(params)
+                            const key = params.name;
+                            if(key === datalist[0]){
+                            return '#e5323e';
+                            }else if(key === datalist[1]){
+                            return '#f2a93b';
+                            }
+                            else{
+                            return '#003366'
+                            }
+                        }
+                        }
+                }]
+            };
+            myChart1.setOption(option1);
+
+
+            option2= {
+                title: {
+                    text: '服务体系',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentSystem2,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: persentSystem2,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            console.log(params)
+                            const key = params.name;
+                            if(key === datalist[0]){
+                            return '#e5323e';
+                            }
+                            else if(key === datalist[1]){
+                                return '#f2a93b';
+                                }
+                            else{
+                            return '#003366'
+                            }
+                        }
+                        }
+
+                }]
+            };
+            myChart2.setOption(option2);
+
+
+
+            option4= {
+                title: {
+                    text: '技术体系',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentSystem3,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: persentSystem3,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            console.log(params)
+                            const key = params.name;
+                            if(key === datalist[0]){
+                            return '#e5323e';
+                            }
+                            else if(key === datalist[1]){
+                                return '#f2a93b';
+                                }
+                            else{
+                            return '#003366'
+                            }
+                        }
+                        }
+
+                }]
+            };
+            myChart4.setOption(option4);
+
+
+            option5= {
+                title: {
+                    text: '供应链与支撑体系',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        crossStyle: {
+                            color: '#999'
+                        }
+                    },
+                },
+                grid: {
+                    left: '10%',
+
+                    right: '0',
+                    bottom: '30%'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: apartmentSystem4,
+                    axisLabel: {  
+                        interval:0,  
+                        rotate:40  
+                     }  
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: persentSystem4,
+                    type: 'bar',
+                    itemStyle:{
+                        color: function(params){
+                            console.log(params)
+                            const key = params.name;
+                            if(key === datalist[0]){
+                            return '#e5323e';
+                            }
+                            else if(key === datalist[1]){
+                                return '#f2a93b';
+                                }
+                            else{
+                            return '#003366'
+                            }
+                        }
+                        }
+
+                }]
+            };
+            myChart5.setOption(option5);
+        },
+		}
+
+	})
+</script>
+
+<style>
+	html,
+	body {
+		height: 100%
+	}
+
+	* {
+		margin: 0;
+		padding: 0
+	}
+
+	#app {
+		width: 100%;
+		height: 100%
+	}
+	.content {
+        padding: 2% 2%;
+        width:96%;
+        height:96%
+	}
+    .content_Top{
+        width:100%;
+        height:48%;
+        display:flex
+    }
+    .content_Bottom{
+        width:100%;
+        height:48%;
+        display:flex
+    }
+    .echart_picture{
+        border:1px solid #e5323e;
+        flex:1
+    }
+</style>
+
+</html>
