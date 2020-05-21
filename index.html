@@ -43,7 +43,7 @@
 					<div class='scroll_1'>
 						<div class="box">
 							<div id="transverseRoll">
-								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index'>
+								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index' >
 									<span style="color:#FF0000">{{item}}</span>
 								</div>
 						</div>
@@ -100,6 +100,7 @@
 	var app = new Vue({
 		el: '#app',
 		data: {
+			isshow:true,
 			scrollList:[
 				'黑龙江滚动文字一号',
 				'黑龙江滚动文字二号',
@@ -122,8 +123,16 @@
 			this.startmarquee(20,20,1500);
 			this.endmarquee(20,20,1500);
 			this.getdata()
+			this.updateScroll()
 		},
 		methods: {
+			updateScroll(){
+				setInterval(function(){
+					this.isshow = false
+
+			
+				},3000)
+			},
 			drowbar() {
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
@@ -554,32 +563,7 @@
 						}
 					},
 
-					tooltip: {
-						padding: 0,
-						enterable: true,
-						transitionDuration: 1,
-						textStyle: {
-							color: '#000',
-							decoration: 'none',
-						},
-						// position: function (point, params, dom, rect, size) {
-						//   return [point[0], point[1]];
-						// },
-						formatter: function(params) {
-							console.log(params)
-							var tipHtml = '';
-							tipHtml = '<div style="width:280px;height:200px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7);white-space:normal">'
-							+'<div style="width:100%;height:40px;line-height:40px;padding:0 20px">'+'<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">'+'</i>'
-							+'<span style="margin-left:10px;color:#fff;font-size:16px;">'+params.name+'</span>'+'</div>'
-							+'<div style="padding:20px">'
-							+'<p style="color:#fff;font-size:12px;" v-for="item in params.data.lesson">'+'<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">'+'</i>'
-							+'<span style="color:#11ee7d;margin:0 6px;">'+params.data.lesson+'</span>'+'</p>'
-							+'</div>'+'</div>';
 
-							return tipHtml;
-						}
-				
-					},
 
 
 					geo: {
@@ -728,24 +712,24 @@
 					count++;
 				}, 1000);
 
-				myChart.on('mouseover', function (params) {
-					console.log(params)
-					clearInterval(timeTicket);
-					myChart.dispatchAction({
-						type: 'downplay',
-						seriesIndex: 1
-					});
-					myChart.dispatchAction({
-						type: 'highlight',
-						seriesIndex: 1,
-						dataIndex: params.dataIndex
-					});
-					myChart.dispatchAction({
-						type: 'showTip',
-						seriesIndex: 1,
-						dataIndex: params.dataIndex,
-					});
-				});
+				//myChart.on('mouseover', function (params) {
+				//	console.log(params)
+					//clearInterval(timeTicket);
+					//myChart.dispatchAction({
+				//		type: 'downplay',
+				//		seriesIndex: 1
+				//	});
+				//	myChart.dispatchAction({
+				//		type: 'highlight',
+				//		seriesIndex: 1,
+				//		dataIndex: params.dataIndex
+				//	});
+				//	myChart.dispatchAction({
+				//		type: 'showTip',
+				//		seriesIndex: 1,
+				//		dataIndex: params.dataIndex,
+				//	});
+				//});
 				myChart.on('mouseout', function (params) {
 					timeTicket && clearInterval(timeTicket);
 					timeTicket = setInterval(function () {
