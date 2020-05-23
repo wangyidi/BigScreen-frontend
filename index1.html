@@ -9,9 +9,7 @@
     <script type="text/javascript" src="./js/world.js"></script>
     <script src="./js/jquery.js"></script>
     <script type="text/javascript" src="./js/vue.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <meta charset="utf-8" />
     <title></title>
 </head>
@@ -21,14 +19,8 @@
         <div class='content'>
             <div class='content-top'>
                 <p class='content_title'>实时参训人次</p>
-                <div class='content_num'>
-                    <h6 class='num_out' v-for='(item,index) in trainingNum' :key = 'index'>
-                        <div class='num_inter'>{{item}}
-
-                        </div>
-                        <p></p>
-                    </h6>
-                </div>
+                <div id="number" class="number" style='width:446px'></div>
+                <input type="hidden" id="hdnum" value="12345"/>
                 <div class='circle1'>
                     <span style='display:block'>满意度</span></br>
                     <span style='font-size:18px'>{{satisficition}}%</span>
@@ -73,7 +65,7 @@
     var app = new Vue({
         el: '#app',
         data: {
-            trainingNum:[],
+            trainingNum:'',
             satisficition:'',
             workingHours:'',
             peopleCount:'',
@@ -84,29 +76,72 @@
         created() {
         },
         mounted() {
-            this.getdata()
-            
+            var that = this
+            that.getdata()
+            that.init();
+ 
         },
         methods: {
+
+          init() {
+                var numStr = $("#hdnum").val();
+                var numDiv = "<div class=\"num\"><div class=\"numinter\">0<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">1<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">2<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">3<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">4<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">5<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">6<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">7<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">8<p></p></div></div>" +
+                "<div class=\"num\"><div class=\"numinter\">9<p></p></div></div>";
+                var html = "";
+                for (var i = 0; i < numStr.length; i++) {
+                    var len = numStr.length - i;
+                    var margin = 60 * parseInt(numStr[i]);
+                    html += "<div class=\"li\" style=\"margin-top:-" + margin + "px\">" + numDiv + "</div>";
+    
+                }
+                $("#number").html(html);
+                //$("#number").css("width", (numStr.length * 45 + Math.floor(numStr.length / 3) * 20 + 40) + "px");
+            },
+         
+            // 数字翻牌
+           change(data) {
+                // 随机生成一个五位数
+                var that = this
+                var num = data ;
+                console.log(num)
+                var numStr = num + "";
+                if (numStr.length != $("div#number div.li").length) {
+                    $("#hdnum").val(num);
+                    this.init();
+                } else {
+                    for (var i = 0; i < numStr.length; i++) {
+                        var margin = 100 * parseInt(numStr[i]);
+                        $("#number").find("div.li").eq(i).css({"margin-top": 0 - margin + "px", "transition": "margin-top 1s"});
+                    }
+                }
+                $("#hdnum").val(num);
+            },
             addnum(data){
                 var that = this
                 that.maxnumber = data.trainingCountNow
                 var num1 = parseFloat(data.trainingCountNow)-200
-                var str1 = num1.toString()
-                that.trainingNum =str1.match(/./g); 
+                that.trainingNum =  num1
+                that.change(that.trainingNum);
                 setInterval(function(){
-                    var aaa  = that.trainingNum.join('')
-                    var bbb = parseFloat(aaa)+1
+                    var bbb = that.trainingNum+1
                     var ccc = bbb.toString()
                     if(ccc===that.maxnumber){
                         var num1 = parseFloat(that.maxnumber)-200
-                        var str1 = num1.toString()
-                        that.trainingNum =str1.match(/./g);
+                        that.trainingNum = num1
                     }else{
-                        that.trainingNum =ccc.match(/./g); 
+                        that.trainingNum = bbb
                     }
                     
                     console.log(that.trainingNum)
+                    that.change(that.trainingNum);
                     
                 },15000)
             },
@@ -292,9 +327,10 @@
     }
 
     .content_title {
-        font-size: 18px;
+        font-size: 22px;
         text-align: center;
-        margin-top: 5%;
+        margin-top: 3%;
+        padding-bottom: 2%;
     }
 
     .content_num {
@@ -317,7 +353,7 @@
         position: relative
     }
 
-    .content_num p {
+    .num p{
         width: 100%;
         height: 3px;
         background: #fff;
@@ -412,7 +448,63 @@
     .content_num h6{
         margin-left:1.25%
     }
+    .doubler {
+        width: 500px;
+        height: 60px;
+        float: left;
+        border: 1px solid #cdcdcd;
+        background-color: #fffcde;
+        /* 调整显示位置，可随意修改*/
+        margin: 50px 500px;
+    }
+    .number {
+        height: 100px;
+        overflow: hidden;
+        margin: auto
+    }
+    .num {
+        height: 92px;
+        font-size: 88px;
+        line-height: 92px;
+        position: relative;
+        padding:4px 4px 
+    }
 
+    .li {
+        width: 45px;
+        float: left;
+        color: #000
+    }
+
+    .comma {
+        width: 20px;
+        line-height: 60px;
+        font-size: 60px;;
+        color: #000;
+        float: left
+    }
+
+    .describe {
+        float: left;
+        line-height: 14px;
+        font-size: 14px;
+        height: 14px;
+        padding-top: 40px;
+        width: 40px;
+        color: #000;
+    }
+
+    .number .li {
+        background: #333333;
+        text-align: center;
+        margin-left: 16px;
+        color: #fff;
+        width: 70px;
+    }
+    .numinter{
+        border:1px solid #000;
+        border-radius:8px
+    }
 </style>
 
 </html>
