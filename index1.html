@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--引入js-->
+    <script src='https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.js'></script>
+    <script type="text/javascript" src="./js/china.js"></script>
+    <script type="text/javascript" src="./js/world.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script type="text/javascript" src="./js/vue.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <div id='app'>
+        <div class='content'>
+            <div class='content-top'>
+                <p class='content_title'>实时参训人次</p>
+                <div class='content_num'>
+                    <h6 class='num_out' v-for='(item,index) in trainingNum' :key = 'index'>
+                        <div class='num_inter'>{{item}}
+
+                        </div>
+                        <p></p>
+                    </h6>
+                </div>
+                <div class='circle1'>
+                    <span style='display:block'>满意度</span></br>
+                    <span style='font-size:18px'>{{satisficition}}%</span>
+                </div>
+                <div class='circle2'>
+                        <span style='display:block'>时长</span></br>
+                        <span style='font-size:18px'>{{workingHours}}</span>
+                </div>
+                <div class='circle3'>
+                        <span style='display:block'>人数</span></br>
+                        <span style='font-size:22px'>{{peopleCount}}</span>
+                </div>
+                <div class='circle4'>
+                        <span style='display:block'>课程</span></br>
+                        <span style='font-size:18px'>{{lessonCount}}</span>
+                </div>
+                <div class='circle5'>
+                        <span style='display:block'>场次</span></br>
+                        <span style='font-size:18px'>{{classCount}}</span>
+                </div>
+             </div>
+             <div class='content-bottom'>
+                <div class='echart_out'>
+                        <div id="main1" style="width:280px;height:280px"></div>
+                </div>
+                <div class='echart_out' style='margin-left:2%'>
+                        <div id="main2" style="width:280px;height:280px;"></div>
+                </div>
+                <div class='echart_out' style='margin-left:2%'>
+                        <div id="main3" style="width:280px;height:280px;"></div>
+                </div>
+                <div class='echart_out' style='margin-left:2%'>
+                        <div id="main4" style="width:280px;height:280px;"></div>
+                </div>
+             </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            trainingNum:[],
+            satisficition:'',
+            workingHours:'',
+            peopleCount:'',
+            lessonCount:'',
+            classCount:'',
+        },
+        created() {
+        },
+        mounted() {
+            this.getdata()
+            
+        },
+        methods: {
+            getdata(){
+                var that = this
+                $.ajax({
+                    url: 'http://47.105.195.101:9090/info/getFirstPage ',
+                    dataType: 'json',
+                    method: 'post',
+                    data: '',
+                    success: function(data) {
+                        console.log(data)
+                        that.trainingNum = data.trainingCountNow.match(/./g);
+                        that.satisficition = parseFloat(data.satisficition).toFixed(2)
+                        that.workingHours = data.workingHours
+                        that.peopleCount = data.peopleCount
+                        that.lessonCount = data.lessonCount
+                        that.classCount = data.classCount
+                        console.log(that.trainingNum)
+                        that.drowEchart(data)
+                    }
+                })
+            },
+            drowEchart(obj){
+                console.log(obj)
+                var myChart1 = echarts.init(document.getElementById('main1'));
+                var myChart2 = echarts.init(document.getElementById('main2'));
+                var myChart3 = echarts.init(document.getElementById('main3'));
+                var myChart4 = echarts.init(document.getElementById('main4'));
+                option1 = {
+                    title: {
+						text: '参训人数',
+						left: '45%'
+					},
+                    grid: {
+                        left: '20%',
+                        top:'10%',
+                        right: '0',
+                        bottom: '40%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: obj.mounthList,
+                        axisLabel: {  
+                            interval:0,  
+                            rotate:40,
+                            fontSize: 8,
+                         },
+
+
+                    },
+                    yAxis: {
+                        type: 'value',
+                        
+                    },
+                    series: [{
+                        data: obj.lastYearTrainNumber,
+                        type: 'line',
+                        smooth: true
+                    }]
+                };
+                option2 = {
+                    title: {
+						text: '参训人次',
+						left: '45%'
+					},
+                    grid: {
+                        left: '20%',
+                        top:'10%',
+                        right: '0',
+                        bottom: '40%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: obj.mounthList,
+                        axisLabel: {  
+                            interval:0,  
+                            rotate:40,
+                            fontSize: 8,
+                         },
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data:obj.lastYearTrainCount,
+                        type: 'line',
+                        smooth: true
+                    }]
+                };
+                option3 = {
+                    title: {
+						text: '培训场次',
+						left: '45%'
+					},
+                    grid: {
+                        left: '20%',
+                        top:'10%',
+                        right: '0',
+                        bottom: '40%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: obj.mounthList,
+                        axisLabel: {  
+                            interval:0,  
+                            rotate:40,
+                            fontSize: 8,
+                         },
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: obj.trainingTimes,
+                        type: 'line',
+                        smooth: true
+                    }]
+                };
+                option4 = {
+                    title: {
+						text: '培训天数',
+						left: '45%'
+					},
+                    grid: {
+                        left: '20%',
+                        top:'10%',
+                        right: '0',
+                        bottom: '40%'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: obj.mounthList,
+                        axisLabel: {  
+                            interval:0,  
+                            rotate:40,
+                            fontSize: 8,
+                         },
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: obj.trainingDays,
+                        type: 'line',
+                        smooth: true
+                    }]
+                };
+                myChart1.setOption(option1);
+                myChart2.setOption(option2);
+                myChart3.setOption(option3);
+                myChart4.setOption(option4);
+            }
+
+
+
+        }
+
+    })
+</script>
+
+<style>
+    html,
+    body {
+        height: 100%
+    }
+
+    * {
+        margin: 0;
+        padding: 0
+    }
+
+    #app {
+        width: 100%;
+        height: 96%;
+    }
+
+    .content {
+        width: 96%;
+        height: 96%;
+        overflow: hidden;
+        padding:2% 2%
+    }
+
+    .content_title {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 5%;
+    }
+
+    .content_num {
+        width: 30%;
+        margin: auto;
+        height: 16%;
+        margin-top: 1%
+    }
+
+    .num_out{
+        float: left;
+        width: 17%;
+        padding:1% 1%;
+        text-align: center;
+    
+        color: #fff;
+        font-size: 88px;
+        background: #333333;
+        font-weight: bold;
+        position: relative
+    }
+
+    .content_num p {
+        width: 100%;
+        height: 3px;
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        background: #000;
+        transform: translateY(-3px);
+        left:0
+    }
+    .num_inter{
+        border:1px solid #000;
+        height:100%;
+        border-radius:8px
+    }
+    .content-top{
+        height:60%;
+        position: relative;
+    }
+    .content-bottom{
+        height: 30%;
+    }
+    .circle1{
+        width:60px;
+        height:60px;
+        text-align: center;
+        background:#18D764;
+        border-radius:50%;
+        position: absolute;
+        top:15%;
+        left:15%;
+        padding: 1%;
+        color:#fff
+    }
+    .circle2{
+        width:70px;
+        height:70px;
+        text-align: center;
+        background:orange;
+        border-radius:50%;
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        padding: 1%;
+        color:#fff
+    }
+    .circle3{
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        background: red;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 35%;
+        padding: 1%;
+        color:#fff
+    }
+    .circle4{
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        background: #00FFFF;
+        border-radius: 50%;
+        position: absolute;
+        top: 53%;
+        left: 60%;
+        padding: 1%;
+        color:#fff
+    }
+    .circle5{
+        width: 70px;
+        height: 70px;
+        text-align: center;
+        background: #4F595B;
+        border-radius: 50%;
+        position: absolute;
+        top: 20%;
+        left: 75%;
+        padding: 1%;
+        color:#fff
+    }
+    .echart_out{
+        flex:1;
+        border:1px solid #f00;
+    }
+    .content-bottom{
+        display:flex
+    }
+    .content_num h6:nth-child(1){
+        margin-left:0
+    }
+    .content_num h6{
+        margin-left:1.25%
+    }
+
+</style>
+
+</html>

@@ -39,7 +39,7 @@
 					<div id="main" style="width:600px;height:400px"></div>
 				</div>
 
-				<div class='center_content2'>
+				<div class='center_content2' v-if='isshow'>
 					<div class='scroll_1'>
 						<div class="box">
 							<div id="transverseRoll">
@@ -101,6 +101,10 @@
 		el: '#app',
 		data: {
 			isshow:true,
+			timer:null,
+			timer1:null,
+			_timer:null,
+			_timer1:null,
 			scrollList:[
 				'黑龙江滚动文字一号',
 				'黑龙江滚动文字二号',
@@ -123,16 +127,9 @@
 			this.startmarquee(20,20,1500);
 			this.endmarquee(20,20,1500);
 			this.getdata()
-			this.updateScroll()
+			
 		},
 		methods: {
-			updateScroll(){
-				setInterval(function(){
-					this.isshow = false
-
-			
-				},3000)
-			},
 			drowbar() {
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
@@ -709,8 +706,31 @@
 						seriesIndex: 1,
 						dataIndex: (count) % dataLength
 					});
+					clearInterval(this.timer);
+					clearInterval(this.timer1);
+					clearTimeout(this._timer)
+					clearTimeout(this._timer1)
+					that.isshow = false
+					that.scrollList = [
+					'北京滚动文字一号',
+					'北京滚动文字二号',
+					'北京滚动文字三号',
+					'北京滚动文字四号',
+					'北京滚动文字五号',
+					'北京滚动文字六号',
+					'北京滚动文字七号',
+					'北京滚动文字八号',
+					'北京滚动文字九号',
+				]
+					setTimeout(function(){
+						that.isshow = true
+						setTimeout(function(){
+							that.startmarquee(20,20,1500);
+							that.endmarquee(20,20,1500);
+						},1)
+					},1)
 					count++;
-				}, 1000);
+				}, 10000);
 
 				//myChart.on('mouseover', function (params) {
 				//	console.log(params)
@@ -754,16 +774,14 @@
 			},
 		 	startmarquee(lh,speed,delay) {//lh-高度，speed 时间，
                 var bFlag = false;
-                var timer = null;
-                var _timer = null;
                 var obj = document.getElementById("transverseRoll");//获取滚动元素
                 obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
                 obj.style.marginTop = 0;
                 obj.onmouseover=function(){ bFlag = true;}//鼠标移入
                 obj.onmouseout=function(){ bFlag = false;}//鼠标移出
                 function start(){
-                    clearInterval(timer);
-                    timer = setInterval(scrolling,speed);
+                    clearInterval(this.timer);
+                    this.timer = setInterval(scrolling,speed);
                     if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) - 1 + "px";
                     console.log('setTimeout:',obj.style.marginTop);
                 }
@@ -772,19 +790,17 @@
                         obj.style.marginTop = parseInt(obj.style.marginTop) - 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
                         if(Math.abs(parseInt(obj.style.marginTop)) >= obj.scrollHeight / 2 ) obj.style.marginTop = 0;
                     }else{
-                        clearInterval(timer);
-                        clearTimeout(_timer);
-                        setTimeout(start,delay);
+                        clearInterval(this.timer);
+                        clearTimeout(this._timer);
+						setTimeout(start,delay);
                     }
                 }
-                clearTimeout(_timer);
+                clearTimeout(this._timer);
                 setTimeout(start,delay);
 			},
 			endmarquee(lh,speed,delay) {//lh-高度，speed 时间，
 				var that = this
                 var bFlag = false;
-                var timer = null;
-                var _timer = null;
                 var obj = document.getElementById("transverseRoll2");//获取滚动元素
 				obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
 				obj.style.marginTop = - 20*that.scrollList.length +'px';
@@ -792,8 +808,8 @@
                 obj.onmouseover=function(){ bFlag = true;}//鼠标移入
                 obj.onmouseout=function(){ bFlag = false;}//鼠标移出
                 function start(){
-                    clearInterval(timer);
-                    timer = setInterval(scrolling,speed);
+                    clearInterval(this.timer1);
+                    this.timer1 = setInterval(scrolling,speed);
                     if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) + 1 + "px";
                     console.log('setTimeout:',obj.style.marginTop);
                 }
@@ -803,12 +819,12 @@
                         obj.style.marginTop = parseInt(obj.style.marginTop) + 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
                         if(Math.abs(parseInt(obj.style.marginTop))==0 ) obj.style.marginTop = - 20*that.scrollList.length +'px';
                     }else{
-                        clearInterval(timer);
-                        clearTimeout(_timer);
-                        setTimeout(start,delay);
+                        clearInterval(this.timer1);
+                        clearTimeout(this._timer1);
+                         setTimeout(start,delay);
                     }
-                }
-                clearTimeout(_timer);
+				}
+                clearTimeout(this._timer1);
                 setTimeout(start,delay);
 			},
 		getdata(){
