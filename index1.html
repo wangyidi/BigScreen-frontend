@@ -79,6 +79,7 @@
             peopleCount:'',
             lessonCount:'',
             classCount:'',
+            maxnumber:'',
         },
         created() {
         },
@@ -87,6 +88,28 @@
             
         },
         methods: {
+            addnum(data){
+                var that = this
+                that.maxnumber = data.trainingCountNow
+                var num1 = parseFloat(data.trainingCountNow)-200
+                var str1 = num1.toString()
+                that.trainingNum =str1.match(/./g); 
+                setInterval(function(){
+                    var aaa  = that.trainingNum.join('')
+                    var bbb = parseFloat(aaa)+1
+                    var ccc = bbb.toString()
+                    if(ccc===that.maxnumber){
+                        var num1 = parseFloat(that.maxnumber)-200
+                        var str1 = num1.toString()
+                        that.trainingNum =str1.match(/./g);
+                    }else{
+                        that.trainingNum =ccc.match(/./g); 
+                    }
+                    
+                    console.log(that.trainingNum)
+                    
+                },1000)
+            },
             getdata(){
                 var that = this
                 $.ajax({
@@ -96,7 +119,7 @@
                     data: '',
                     success: function(data) {
                         console.log(data)
-                        that.trainingNum = data.trainingCountNow.match(/./g);
+                        that.addnum(data)
                         that.satisficition = parseFloat(data.satisficition).toFixed(2)
                         that.workingHours = data.workingHours
                         that.peopleCount = data.peopleCount
