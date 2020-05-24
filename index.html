@@ -21,13 +21,17 @@
 		<div class='content'>
 			<div class='left_content'>
 				<div class='left_content1'>
-					公司总人数
+					<span style='display:block;margin-top:20px'>公司总人数</span></br>
+					<span>{{companyCount}}</span>
+					
 				</div>
 				<div class='left_content2'>
-					参训人数覆盖率
+					<span style='display:block;margin-top:20px'>参训人数覆盖率</span></br>
+					<span>{{newJoinCount}}%</span>
 				</div>
 				<div class='left_content3'>
-					新员工已参训人数
+					<span style='display:block;margin-top:20px'>新员工已参训人数</span></br>
+					<span>{{trainCount}}</span>
 				</div>
 				<div class='left_content4'>
 					<div id="mainworld" style="width:400px;height:200px"></div>
@@ -44,7 +48,7 @@
 						<div class="box">
 							<div id="transverseRoll">
 								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index' >
-									<span style="color:#FF0000">{{item}}</span>
+									<span style="color:#FF0000">{{item.className}}</span>
 								</div>
 						</div>
 						</div>
@@ -54,7 +58,7 @@
 						<div class="box">
 							<div id="transverseRoll2">
 								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index'>
-									<span style="color:#FF0000">{{item}}</span>
+									<span style="color:#FF0000">{{item.className}}</span>
 								</div>
 						</div>
 						</div>
@@ -73,20 +77,36 @@
 					<p class='right_3_title'>课程种类分布情况</p>
 					<div class='right_3_center'>
 
-						<div class='one'></div>
+						<div class='one'>
+							<span>领导力</span></br>
+							<span>{{num1}}</span>
 
-						<div class='two'></div>
+						</div>
+
+						<div class='two'>
+							<span>专业技能</span></br>
+							<span>{{num2}}</span>
+						</div>
 
 
-						<div class='three'></div>
+						<div class='three'>
+							<span>综合定制</span></br>
+							<span>{{num3}}</span>
+						</div>
 
 					</div>
 					<div class='right_3_bottom'>
 
-						<div class='four'></div>
+						<div class='four'>
+							<span>通用技能</span></br>
+							<span>{{num4}}</span>
+						</div>
 
 
-						<div class='five'></div>
+						<div class='five'>
+							<span>新员工</span></br>
+							<span>{{num5}}</span>
+						</div>
 
 					</div>
 				</div>
@@ -100,37 +120,29 @@
 	var app = new Vue({
 		el: '#app',
 		data: {
+			trainCount:'',
+			companyCount:'',
+			newJoinCount:'',
+			scrollList:[],
+			num1:'',
+			num2:'',
+			num3:'',
+			num4:'',
+			num5:'',
 			isshow:true,
 			timer:null,
 			timer1:null,
 			_timer:null,
 			_timer1:null,
-			scrollList:[
-				'黑龙江滚动文字一号',
-				'黑龙江滚动文字二号',
-				'黑龙江滚动文字三号',
-				'黑龙江滚动文字四号',
-				'黑龙江滚动文字五号',
-				'黑龙江滚动文字六号',
-				'黑龙江滚动文字七号',
-				'黑龙江滚动文字八号',
-				'黑龙江滚动文字九号',
-			]
 		},
 		created() {
 		},
 		mounted() {
-			this.drowMapworld()
-			this.drowmap()
-			this.drowpie()
-			this.drowbar()
-			this.startmarquee(20,20,1500);
-			this.endmarquee(20,20,1500);
 			this.getdata()
-			
+
 		},
 		methods: {
-			drowbar() {
+			drowbar(x,y) {
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
 					title: {
@@ -149,19 +161,22 @@
 					},
 					grid: {
 						left: '60',
-
+						top:'40',
 						right: '50',
-						bottom: '40'
+						bottom: '60'
 					},
 
 					xAxis: [
 						{
 							type: 'category',
-							data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+							data: x,
 							axisPointer: {
 								type: 'shadow'
 							},
-							axisLabel:{interval: 0}
+							axisLabel: {  
+								interval:0,  
+								rotate:40  
+							 } 
 						}
 					],
 					yAxis: [
@@ -189,13 +204,15 @@
 						{
 							name: '覆盖人次增长率',
 							type: 'line',
-							data: [20, 22, 33, 45, 63, 10.2, 20.3, 30, 23, 66, 76, 82]
+							data: y.map(function (value,index,arr) {  
+								return value*100
+							}),
 						}
 					]
 				};
 				myChartbar.setOption(optionbar)
 			},
-			drowpie() {
+			drowpie(x,y) {
 				var myChartpie = echarts.init(document.getElementById('mainpie'));
 				// 多系列无法定位
 
@@ -243,12 +260,16 @@
 					},
 					grid: {
 						left: '60',
-
+						top:'40',
 						right: '50',
 						bottom: '40'
 					},
 					xAxis: {
-						data: ['营销体系', '服务体系', '技术体系', '供应量']
+						data:x,
+						axisLabel: {  
+							interval:0,  
+								 
+						 },
 					},
 					yAxis: {
 						axisLabel: {
@@ -263,7 +284,9 @@
 						z: 1,
 						type: 'bar',
 						barWidth: barWidth,
-						data: [22, 12, 19, 34, 90, 30, 30],
+						data:y.map(function (value,index,arr) {  
+							return value*100
+						}),
 						itemStyle: {
 							normal: {
 								color: colors[1]
@@ -287,7 +310,9 @@
 						name: '上部1',
 						type: 'pictorialBar',
 						symbolPosition: 'end',
-						data: [22, 12, 19, 34, 90, 30, 30],
+						data: y.map(function (value,index,arr) {  
+							return value*100
+						}),
 						symbol: 'diamond',
 						symbolOffset: [0, '-50%'],
 						symbolSize: [barWidth - 4, 10 * (barWidth - 4) / barWidth],
@@ -302,7 +327,7 @@
 				};
 				myChartpie.setOption(optionpie);
 			},
-			drowMapworld() {
+			drowMapworld(worlddata) {
 				var myChartworld = echarts.init(document.getElementById('mainworld'));
 
 				optionworld = {
@@ -358,12 +383,16 @@
 				const AnimateCtrl = function () {
 					this.data = {
 						listData: [
-							{ 'name': '约翰内斯堡', 'value': [28.047305, -26.204103], country: 'South Africa' },
-							{ 'name': '萨格勒布', 'value': [15.981919, 45.815008], country: 'Croatia' },
-							{ 'name': '斗湖', 'value': [117.538749, 4.1459], country: 'Malaysia' },
-							{ 'name': '马尼拉', 'value': [120.98453, 14.58865], country: 'Philippines' },
-							{ 'name': '中国香港', 'value': [114.186125, 22.293586], country: 'China' },
+							{ 'name': '俄罗斯', 'value': [98.047305, 226.204103], country: "俄罗斯" },
+							{ 'name': '印度尼西亚', 'value': [15.981919, 45.815008], country: '印度尼西亚' },
+							{ 'name': '泰国', 'value': [117.538749, 4.1459], country: '泰国' },
+							{ 'name': '马来西亚', 'value': [120.98453, 14.58865], country: '马来西亚' },
+							{ 'name': '中国', 'value': [114.186125, 22.293586], country: '中国' },
+							{ 'name': '日本', 'value': [134.186125, 42.293586], country: '日本' },
+							{ 'name': '哈萨克斯坦', 'value': [54.186125, 25.293586], country: '哈萨克斯坦' },
+							{ 'name': '巴基斯坦', 'value': [4.186125, 15.293586], country: '巴基斯坦' },
 						],
+					
 						colors: ['#EEEC0D', '#E55125', '#5EA6FE', '#FC92F7', '#67D670', '#36FFF8']
 					}
 				}
@@ -396,8 +425,9 @@
 											name: that.data.listData[i]['country'],
 											itemStyle: {
 												normal: {
-													// areaColor: randomColor 
-													areaColor: 'skyblue'
+													areaColor: randomColor,
+													show:true
+
 												}
 
 											}
@@ -427,16 +457,9 @@
 
 
 			},
-			drowmap() {
+			drowmap(province) {
 				var that = this
-				var datajson=[
-					{ name: "北京", value: 199 ,lesson:['这里显示课程——北京','这里显示课程——北京','这里显示课程——北京']},
-					{ name: "吉林", value: 100 ,lesson:['这里显示课程——吉林','这里显示课程——吉林','这里显示课程——吉林']},
-					{ name: "黑龙江", value: 123 ,lesson:['这里显示课程——黑龙江','这里显示课程——黑龙江','这里显示课程——黑龙江']},
-					{ name: "上海", value: 24,lesson:['这里显示课程——上海','这里显示课程——上海','这里显示课程——上海']},
-					{ name: "新疆", value: 214,lesson:['这里显示课程——新疆','这里显示课程——新疆','这里显示课程——新疆']},
-				]
-
+				var datajson=[]
 				var myChart = echarts.init(document.getElementById('main'));
 
 				var mapName = 'china'
@@ -472,8 +495,24 @@
 					{ name: "广东", value: 123 },
 					{ name: "广西", value: 59 },
 					{ name: "海南", value: 14 },
+					{ name: "香港", value: 21 },
 				];
+				//筛选省份数据
+				for(var i=0;i<province.length;i++){
+					for(var j=0;j<data.length;j++){
+						if(province[i].province==data[j].name){
+							datajson.push(data[j])
 
+						}
+					}
+				}
+				//筛选初次渲染的课程数据
+				for(var i=0;i<province.length;i++){
+					if(datajson[0].name == province[i].province){
+						that.scrollList = province[i].classNameList
+					}
+				}
+				console.log(datajson)
 				var geoCoordMap = {};
 				var toolTipData = [
 					{ name: "北京", value: [{ name: "科技人才总数", value: 95 }, { name: "理科", value: 82 }] },
@@ -657,9 +696,7 @@
 						name: 'Top 5',
 						type: 'effectScatter',
 						coordinateSystem: 'geo',
-						data: convertData(datajson.sort(function (a, b) {
-							return b.value - a.value;
-						}).slice(0, 5)),
+						data: convertData(datajson),
 						symbolSize: function (val) {
 							return val[2] / 10;
 						},
@@ -672,7 +709,7 @@
 							normal: {
 								formatter: '{b}',
 								position: 'right',
-								show: true
+								show: false
 							}
 						},
 						itemStyle: {
@@ -705,29 +742,23 @@
 						type: 'showTip',
 						seriesIndex: 1,
 						dataIndex: (count) % dataLength
-					});
-					clearInterval(this.timer);
-					clearInterval(this.timer1);
-					clearTimeout(this._timer)
-					clearTimeout(this._timer1)
+					}),
+					console.log(datajson[(count) % dataLength].name)
+					for(var i=0;i<province.length;i++){
+						if(province[i].province==datajson[(count) % dataLength].name){
+							that.scrollList = province[i].classNameList
+						}
+					}
 					that.isshow = false
-					that.scrollList = [
-					'北京滚动文字一号',
-					'北京滚动文字二号',
-					'北京滚动文字三号',
-					'北京滚动文字四号',
-					'北京滚动文字五号',
-					'北京滚动文字六号',
-					'北京滚动文字七号',
-					'北京滚动文字八号',
-					'北京滚动文字九号',
-				]
+					console.log(that.scrollList)
 					setTimeout(function(){
 						that.isshow = true
 						setTimeout(function(){
 							that.startmarquee(20,20,1500);
-							that.endmarquee(20,20,1500);
+							that.endmarquee(20,20,1500)
 						},1)
+					
+
 					},1)
 					count++;
 				}, 10000);
@@ -768,7 +799,7 @@
 							dataIndex: (count) % dataLength
 						});
 						count++;
-					}, 1000);
+					}, 10000);
 				});
 				myChart.setOption(option);
 			},
@@ -783,13 +814,15 @@
                     clearInterval(this.timer);
                     this.timer = setInterval(scrolling,speed);
                     if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) - 1 + "px";
-                    console.log('setTimeout:',obj.style.marginTop);
+                    //console.log('setTimeout:',obj.style.marginTop);
                 }
                 function scrolling(){
                     if(parseInt(obj.style.marginTop) % lh != 0){  
                         obj.style.marginTop = parseInt(obj.style.marginTop) - 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
-                        if(Math.abs(parseInt(obj.style.marginTop)) >= obj.scrollHeight / 2 ) obj.style.marginTop = 0;
+						if(Math.abs(parseInt(obj.style.marginTop)) ==0 ) obj.style.marginTop = 0;
+						
                     }else{
+						
                         clearInterval(this.timer);
                         clearTimeout(this._timer);
 						setTimeout(start,delay);
@@ -803,7 +836,7 @@
                 var bFlag = false;
                 var obj = document.getElementById("transverseRoll2");//获取滚动元素
 				obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
-				obj.style.marginTop = - 20*that.scrollList.length +'px';
+				obj.style.marginTop = - 20*(that.scrollList.length-2) +'px';
 				console.log(obj.style.marginTop)
                 obj.onmouseover=function(){ bFlag = true;}//鼠标移入
                 obj.onmouseout=function(){ bFlag = false;}//鼠标移出
@@ -811,13 +844,13 @@
                     clearInterval(this.timer1);
                     this.timer1 = setInterval(scrolling,speed);
                     if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) + 1 + "px";
-                    console.log('setTimeout:',obj.style.marginTop);
+                    //console.log('setTimeout:',obj.style.marginTop);
                 }
                 function scrolling(){
 		
                     if(parseInt(obj.style.marginTop) % lh != 0){  
                         obj.style.marginTop = parseInt(obj.style.marginTop) + 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
-                        if(Math.abs(parseInt(obj.style.marginTop))==0 ) obj.style.marginTop = - 20*that.scrollList.length +'px';
+                        if(Math.abs(parseInt(obj.style.marginTop))==0 ) obj.style.marginTop = - 20*(that.scrollList.length-2) +'px';
                     }else{
                         clearInterval(this.timer1);
                         clearTimeout(this._timer1);
@@ -828,13 +861,36 @@
                 setTimeout(start,delay);
 			},
 		getdata(){
+			var that = this
 			$.ajax({
-                url: 'http://47.105.195.101:9090/getThirdPageData',
+                url: 'http://47.105.195.101:9090/getSecondPageData',
                 dataType: 'json',
                 method: 'post',
                 data: '',
                 success: function(data) {
-                    console.log(data)
+					console.log(data)
+					that.newJoinCount = data.newJoinCount
+					that.companyCount = data.companyCount
+					that.trainCount = data.trainCount
+					for(var i=0;i<data.classList.length;i++){
+						if(data.classList[i].CLASSIFICATION=='领导力'){
+								that.num1 = data.classList[i].COUNT
+						}else if(data.classList[i].CLASSIFICATION=='专业技能'){
+								that.num2 = data.classList[i].COUNT
+						}else if(data.classList[i].CLASSIFICATION=='综合定制'){
+								that.num3 = data.classList[i].COUNT
+						}else if(data.classList[i].CLASSIFICATION=='通用技能'){
+								that.num4 = data.classList[i].COUNT
+						}else if(data.classList[i].CLASSIFICATION=='新员工'){
+								that.num5 = data.classList[i].COUNT
+						}
+					}
+					that.drowMapworld(data.countryList)
+					that.drowmap(data.calssNameList)
+					that.drowpie(data.sysList,data.proportionList)
+					that.drowbar(data.yearList,data.trainScale)
+					that.startmarquee(20,20,1500);
+					that.endmarquee(20,20,1500);
                 }
             })
 		}	
@@ -898,14 +954,12 @@
 
 	.left_content1 {
 		height: 100px;
-		line-height: 100px;
 		text-align: center;
 		border: 1px solid #f00
 	}
 
 	.left_content2 {
 		height: 100px;
-		line-height: 100px;
 		margin-top: 50px;
 		text-align: center;
 		border: 1px solid #f00
@@ -913,7 +967,6 @@
 
 	.left_content3 {
 		height: 100px;
-		line-height: 100px;
 		margin-top: 50px;
 		text-align: center;
 		border: 1px solid #f00
@@ -972,47 +1025,66 @@
 
 	.one {
 		width: 60px;
-		height: 60px;
+		height: 50px;
 		border-radius: 50%;
 		background: green;
 		position: absolute;
-		left: 60px
+		left: 60px;
+		font-size:12px;
+		text-align:center;
+		padding-top:10px;
+		color:#fff
 	}
 
 	.two {
 		width: 100px;
-		height: 100px;
+		height: 80px;
 		border-radius: 50%;
 		background: red;
 		position: absolute;
-		left: 160px
+		left: 160px;
+		text-align:center;
+		padding-top:20px;
+		color:#fff
 	}
 
 	.three {
 		width: 60px;
-		height: 60px;
+		height: 50px;
 		border-radius: 50%;
 		background: gray;
 		position: absolute;
-		left: 300px
+		left: 300px;
+		font-size:12px;
+		padding-top:10px;
+		text-align:center;
+		color:#fff
 	}
 
 	.four {
 		width: 60px;
-		height: 60px;
+		height: 50px;
 		border-radius: 50%;
-		background: blue;
+		background: #000088;
 		position: absolute;
-		left: 100px
+		left: 100px;
+		font-size:12px;
+		padding-top:10px;
+		text-align:center;
+		color:#fff
 	}
 
 	.five {
 		width: 60px;
-		height: 60px;
+		height: 50px;
 		border-radius: 50%;
 		background: orange;
 		position: absolute;
-		left: 260px
+		left: 260px;
+		font-size:12px;
+		padding-top:10px;
+		text-align:center;
+		color:#fff
 	}
 
 	.el-carousel__item h3 {
