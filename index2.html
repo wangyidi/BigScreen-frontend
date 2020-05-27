@@ -46,9 +46,10 @@
 
 				<div class='center_content2' v-if='isshow'>
 					<div class='scroll_1'>
+						<div class='scroll_title'>{{title1}}</div>
 						<div class="box">
 							<div id="transverseRoll">
-								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index' >
+								<div class="contentscroll" v-for='(item,index) in scrollList1' :key='index' >
 									<span style="color:#FF0000">{{item.className}}</span>
 								</div>
 						</div>
@@ -56,9 +57,10 @@
 					</div>
 
 					<div class='scroll_2'>
+						<div class='scroll_title'>{{title2}}</div>
 						<div class="box">
 							<div id="transverseRoll2">
-								<div class="contentscroll" v-for='(item,index) in scrollList' :key='index'>
+								<div class="contentscroll" v-for='(item,index) in scrollList2' :key='index'>
 									<span style="color:#FF0000">{{item.className}}</span>
 								</div>
 						</div>
@@ -124,10 +126,16 @@
 			trainCount:'',
 			companyCount:'',
 			newJoinCount:'',
-			scrollList:[
+			scrollList1:[
 				{className:'课程详情'},
 				{className:'课程详情'},
 			],
+			scrollList2:[
+			{className:'课程详情'},
+			{className:'课程详情'},
+		],
+			title1:'当前省份',
+			title2:'当前省份',
 			num1:'',
 			num2:'',
 			num3:'',
@@ -712,12 +720,6 @@
 						}
 					}
 				}
-				//筛选初次渲染的课程数据
-				//for(var i=0;i<province.length;i++){
-				//	if(datajson[0].name == province[i].province){
-				//		that.scrollList = province[i].classNameList
-				//	}
-				//}
 				console.log(datajson)
 				var geoCoordMap = {};
 				var toolTipData = [
@@ -791,9 +793,8 @@
 				}).slice(0, 5)))
 				option = {
 
-
 					visualMap: {
-						show: true,
+						show: false,
 						min: 0,
 						max: 200,
 						left: '10%',
@@ -811,6 +812,7 @@
 					geo: {
 						show: true,
 						map: mapName,
+						zoom: 1,  
 						label: {
 							normal: {
 								show: false
@@ -855,6 +857,7 @@
 					{
 						name: 'iphone4',
 						type: 'map',
+						zoom: 1,   
 						mapType: 'china',
 						roam: false,
 						itemStyle: {
@@ -936,6 +939,8 @@
 				var dataLength = option.series[1].data.length; //循环轮播几个图
 				timeTicket && clearInterval(timeTicket);
 				timeTicket = setInterval(function () {
+					var index1 = (count) % dataLength+((count) % dataLength*1)
+					var index2 = (count) % dataLength+1+((count) % dataLength*1)
 					myChart.dispatchAction({
 						type: 'downplay',
 						seriesIndex: 1,
@@ -943,51 +948,42 @@
 					myChart.dispatchAction({
 						type: 'highlight',
 						seriesIndex: 1,
-						dataIndex: (count) % dataLength
+						dataIndex: index1
 					});
 					myChart.dispatchAction({
-						type: 'showTip',
+						type: 'highlight',
 						seriesIndex: 1,
-						dataIndex: (count) % dataLength
-					}),
-					console.log(datajson[(count) % dataLength].name)
-					for(var i=0;i<province.length;i++){
-						if(province[i].province==datajson[(count) % dataLength].name){
-							that.scrollList = province[i].classNameList
-						}
-					}
+						dataIndex: index2
+					});
+
 					that.isshow = false
-					console.log(that.scrollList)
 					setTimeout(function(){
 						that.isshow = true
 						setTimeout(function(){
 							that.startmarquee(20,20,1500);
-							that.endmarquee(20,20,1500)
+							that.startmarquee2(20,20,1500)
 						},1)
-					
-
+						
 					},1)
 					count++;
+					if(index2 == datajson.length-1 ||index1 == datajson.length-1){
+						count = 0
+					}else{
+						that.title1 = datajson[index1].name
+						that.title2 = datajson[index2].name
+						for(var i=0;i<province.length;i++){
+							if(province[i].province==datajson[index1].name){
+								that.scrollList1 = province[i].classNameList
+							}
+							if(province[i].province==datajson[index2].name){
+								that.scrollList2 = province[i].classNameList
+							}
+						}
+						console.log(that.scrollList1)
+						console.log(that.scrollList2)
+					}
 				}, 10000);
 
-				//myChart.on('mouseover', function (params) {
-				//	console.log(params)
-					//clearInterval(timeTicket);
-					//myChart.dispatchAction({
-				//		type: 'downplay',
-				//		seriesIndex: 1
-				//	});
-				//	myChart.dispatchAction({
-				//		type: 'highlight',
-				//		seriesIndex: 1,
-				//		dataIndex: params.dataIndex
-				//	});
-				//	myChart.dispatchAction({
-				//		type: 'showTip',
-				//		seriesIndex: 1,
-				//		dataIndex: params.dataIndex,
-				//	});
-				//});
 
 				myChart.setOption(option);
 			},
@@ -1013,6 +1009,34 @@
 						
                         clearInterval(this.timer);
                         clearTimeout(this._timer);
+						setTimeout(start,delay);
+                    }
+                }
+                clearTimeout(this._timer);
+                setTimeout(start,delay);
+			},
+			startmarquee2(lh,speed,delay) {//lh-高度，speed 时间，
+                var bFlag = false;
+                var obj = document.getElementById("transverseRoll2");//获取滚动元素
+                obj.innerHTML += obj.innerHTML;//滚动元素的内容为2倍自己的内容
+                obj.style.marginTop = 0;
+                obj.onmouseover=function(){ bFlag = true;}//鼠标移入
+                obj.onmouseout=function(){ bFlag = false;}//鼠标移出
+                function start(){
+                    clearInterval(this.timer1);
+                    this.timer1 = setInterval(scrolling,speed);
+                    if(!bFlag) obj.style.marginTop=parseInt(obj.style.marginTop) - 1 + "px";
+                    //console.log('setTimeout:',obj.style.marginTop);
+                }
+                function scrolling(){
+                    if(parseInt(obj.style.marginTop) % lh != 0){  
+                        obj.style.marginTop = parseInt(obj.style.marginTop) - 1 + "px";//滚动物体的marginTop >=  它的滚动高度/2   比如   |-40| >= 80/2    →→→→→→→→→→      0 % 20 = 0
+						if(Math.abs(parseInt(obj.style.marginTop)) ==0 ) obj.style.marginTop = 0;
+						
+                    }else{
+						
+                        clearInterval(this.timer1);
+                        clearTimeout(this._timer1);
 						setTimeout(start,delay);
                     }
                 }
@@ -1099,7 +1123,7 @@
 
 	#app {
 		width: 100%;
-		height: 100%
+		height: 100%;
 	}
 
 	.content {
@@ -1294,12 +1318,18 @@
 
 
         .box{
-            margin:50px auto;
+            margin:20px auto;
             width:170px;
-            height:42px;
+            height:84px;
             line-height:20px;
             overflow:hidden;
-        }
+		}
+		.scroll_title{
+			font-size:16px;
+			color:#000;
+			text-align: center;
+			margin-top:20px
+		}
         .box .contentscroll{
             list-style-type:none;
             margin:0;padding:0;

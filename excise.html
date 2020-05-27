@@ -1,265 +1,46 @@
-<!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-    <!--引入js-->
-    <script src='https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.js'></script>
-    <script type="text/javascript" src="./js/china.js"></script>
-    <script type="text/javascript" src="./js/world.js"></script>
-    <script src="./js/jquery.js"></script>
-    <script type="text/javascript" src="./js/vue.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
-
 <body>
-        <div id="number" class="number"></div>
-        <input type="hidden" id="hdnum" value="12345"/>
+        <canvas width="500" height="500" id='can'></canvas>
 </body>
-
 <script>
-        $(function () {
-            // 初始化
-            init();
-            change();
-            // 3秒中刷新一次
-            setInterval("change()", 3000);
-        });
-
-        // 渲染页面
-        function init() {
-            var numStr = $("#hdnum").val();
-            var numDiv = "<div class=\"num\">0</div>" +
-                "<div class=\"num\">1</div>" +
-                "<div class=\"num\">2</div>" +
-                "<div class=\"num\">3</div>" +
-                "<div class=\"num\">4</div>" +
-                "<div class=\"num\">5</div>" +
-                "<div class=\"num\">6</div>" +
-                "<div class=\"num\">7</div>" +
-                "<div class=\"num\">8</div>" +
-                "<div class=\"num\">9</div>";
-            var html = "";
-            for (var i = 0; i < numStr.length; i++) {
-                var len = numStr.length - i;
-                var margin = 60 * parseInt(numStr[i]);
-                html += "<div class=\"li\" style=\"margin-top:-" + margin + "px\">" + numDiv + "</div>";
-
-            }
-            $("#number").html(html);
-            $("#number").css("width", (numStr.length * 45 + Math.floor(numStr.length / 3) * 20 + 40) + "px");
-        }
-     
-        // 数字翻牌
-        function change() {
-            // 随机生成一个五位数
-            var num = parseInt(Math.random() * 100000);
-            var numStr = num + "";
-            if (numStr.length != $("div#number div.li").length) {
-                $("#hdnum").val(num);
-                init();
-            } else {
-                for (var i = 0; i < numStr.length; i++) {
-                    var margin = 60 * parseInt(numStr[i]);
-                    $("#number").find("div.li").eq(i).css({"margin-top": 0 - margin + "px", "transition": "margin-top 1s"});
-                }
-            }
-            $("#hdnum").val(num);
-        }
+        var can=document.getElementById('can');
+                ctx = can.getContext('2d'); 
+                ctx.beginPath();
+            ctx.arc(250,250,250,0,2*Math.PI,true);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(312,136,100,0,2*Math.PI,true);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(217, 100);
+                ctx.quadraticCurveTo(120, 80, 20, 150);
+                ctx.stroke();
+                ctx.moveTo(213, 165);
+                ctx.quadraticCurveTo(72, 262, 50, 398);
+                ctx.stroke();
+                ctx.moveTo(277, 232);
+                ctx.quadraticCurveTo(244, 425, 209, 500);
+                ctx.stroke();
+                ctx.moveTo(362, 225);
+                ctx.quadraticCurveTo(399, 375, 382, 467);
+                ctx.stroke();
+                ctx.moveTo(407, 175);
+                ctx.quadraticCurveTo(464, 204, 500, 273);
+                ctx.stroke();
+                ctx.moveTo(407, 104);
+                ctx.quadraticCurveTo(423, 88, 452, 99);
+                ctx.stroke();
+                ctx.moveTo(333, 40);
+                ctx.quadraticCurveTo(331, 27, 352, 24);
+                ctx.stroke();
+                ctx.moveTo(261, 51);
+                ctx.quadraticCurveTo(244, 23, 196, 9);
+                ctx.stroke();
 </script>
-
-<style>
-    html,
-    body {
-        height: 100%
-    }
-
-    * {
-        margin: 0;
-        padding: 0
-    }
-
-    #app {
-        width: 100%;
-        height: 96%;
-    }
-
-    .content {
-        width: 96%;
-        height: 96%;
-        overflow: hidden;
-        padding:2% 2%
-    }
-
-    .content_title {
-        font-size: 18px;
-        text-align: center;
-        margin-top: 5%;
-    }
-
-    .content_num {
-        width: 30%;
-        margin: auto;
-        height: 16%;
-        margin-top: 1%
-    }
-
-    .num_out{
-        float: left;
-        width: 17%;
-        padding:1% 1%;
-        text-align: center;
-    
-        color: #fff;
-        font-size: 88px;
-        background: #333333;
-        font-weight: bold;
-        position: relative
-    }
-
-    .content_num p {
-        width: 100%;
-        height: 3px;
-        background: #fff;
-        position: absolute;
-        top: 50%;
-        background: #000;
-        transform: translateY(-3px);
-        left:0
-    }
-    .num_inter{
-        border:1px solid #000;
-        height:100%;
-        border-radius:8px
-    }
-    .content-top{
-        height:60%;
-        position: relative;
-    }
-    .content-bottom{
-        height: 30%;
-    }
-    .circle1{
-        width:60px;
-        height:60px;
-        text-align: center;
-        background:#18D764;
-        border-radius:50%;
-        position: absolute;
-        top:15%;
-        left:15%;
-        padding: 1%;
-        color:#fff
-    }
-    .circle2{
-        width:70px;
-        height:70px;
-        text-align: center;
-        background:orange;
-        border-radius:50%;
-        position: absolute;
-        top: 40%;
-        left: 20%;
-        padding: 1%;
-        color:#fff
-    }
-    .circle3{
-        width: 100px;
-        height: 100px;
-        text-align: center;
-        background: red;
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 35%;
-        padding: 1%;
-        color:#fff
-    }
-    .circle4{
-        width: 70px;
-        height: 70px;
-        text-align: center;
-        background: #00FFFF;
-        border-radius: 50%;
-        position: absolute;
-        top: 53%;
-        left: 60%;
-        padding: 1%;
-        color:#fff
-    }
-    .circle5{
-        width: 70px;
-        height: 70px;
-        text-align: center;
-        background: #4F595B;
-        border-radius: 50%;
-        position: absolute;
-        top: 20%;
-        left: 75%;
-        padding: 1%;
-        color:#fff
-    }
-    .echart_out{
-        flex:1;
-        border:1px solid #f00;
-    }
-    .content-bottom{
-        display:flex
-    }
-    .content_num h6:nth-child(1){
-        margin-left:0
-    }
-    .content_num h6{
-        margin-left:1.25%
-    }
-    .doubler {
-        width: 500px;
-        height: 60px;
-        float: left;
-        border: 1px solid #cdcdcd;
-        background-color: #fffcde;
-        /* 调整显示位置，可随意修改*/
-        margin: 50px 500px;
-    }
-    .number {
-        height: 60px;
-        overflow: hidden;
-        margin: auto
-    }
-    .num {
-        width: 45px;
-        height: 60px;
-        font-size: 60px;
-        line-height: 60px
-    }
-
-    .li {
-        width: 45px;
-        float: left;
-        color: #000
-    }
-
-    .comma {
-        width: 20px;
-        line-height: 60px;
-        font-size: 60px;;
-        color: #000;
-        float: left
-    }
-
-    .describe {
-        float: left;
-        line-height: 14px;
-        font-size: 14px;
-        height: 14px;
-        padding-top: 40px;
-        width: 40px;
-        color: #000;
-    }
-</style>
-
 </html>

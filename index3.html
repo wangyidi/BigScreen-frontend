@@ -148,7 +148,12 @@
             option3= {
                 title: {
                     text: filterapartment[0],
-                    left: 'center'
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -168,22 +173,50 @@
                 xAxis: {
                     type: 'category',
                     data: apartmentYear0,
-                    axisLabel: {  
+
+                     axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
                 },
                 series: [{
                     data: apartmentData0,
                     type: 'bar',
-                    itemStyle:{
-                        color: function(params){
-                            return '#e5323e'
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius: 15,
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#ff9191'
+                            }, {
+                                offset: 1,
+                                color: '#ff696a'
+                            }])
                         }
-                        }
+                    }
                 }]
             };
             myChart3.setOption(option3);
@@ -191,7 +224,12 @@
             option6= {
                 title: {
                     text: filterapartment[1],
-                    left: 'center'
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -211,32 +249,65 @@
                 xAxis: {
                     type: 'category',
                     data: apartmentYear1,
-                    axisLabel: {  
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
                 },
                 series: [{
                     data: apartmentData1,
                     type: 'bar',
-                    itemStyle:{
-                        color: function(params){
-                            return '#f2a93b'
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius: 15,
+                            color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#FFFC00'
+                              },
+                              {
+                                offset: 1,
+                                color: '#08E4DE'
+                              }
+                            ])
                         }
-                        }
+                    }
                 }]
             };
             myChart6.setOption(option6);
         },
         drowLeft(datalist){
+            console.log(this.list)
+            //参训人数比率
             var systemlist1 = []
             var systemlist2 = []
             var systemlist3 = []
             var systemlist4 = []
-            this.list.SystemDataList.map(
+            //筛选部门
+            this.list.percentList.map(
                 function (value,index,arr) {  
                     if(value.system=='营销体系'){
                         systemlist1.push(value)
@@ -252,8 +323,7 @@
                     }
                 }
             )
-            console.log(datalist)
-           
+            console.log(systemlist1,systemlist2,systemlist3,systemlist4)
 
             var apartmentSystem1 = systemlist1.map(
                 function (value,index,arr) {  
@@ -262,7 +332,7 @@
             )
             var persentSystem1  = systemlist1.map(
                 function (value,index,arr) {  
-                    return value.persent.slice(0,value.persent.length-1)
+                    return value.percent
                 }
             )   
             
@@ -273,7 +343,7 @@
             )
             var persentSystem2  = systemlist2.map(
                 function (value,index,arr) {  
-                    return value.persent.slice(0,value.persent.length-1)
+                    return value.percent
                 }
             ) 
 
@@ -284,7 +354,7 @@
             )
             var persentSystem3  = systemlist3.map(
                 function (value,index,arr) {  
-                    return value.persent.slice(0,value.persent.length-1)
+                    return value.percent
                 }
             ) 
 
@@ -295,232 +365,1225 @@
             )
             var persentSystem4  = systemlist4.map(
                 function (value,index,arr) {  
-                    return value.persent.slice(0,value.persent.length-1)
+                    return value.percent
                 }
             ) 
+            console.log(persentSystem1,persentSystem2,persentSystem3,persentSystem4)
+
+
+            //参训人次比率
+                      var systemlist5 = []
+                      var systemlist6 = []
+                      var systemlist7 = []
+                      var systemlist8 = []
+                      //筛选部门
+                      this.list.percentTimeList.map(
+                          function (value,index,arr) {  
+                              if(value.system=='营销体系'){
+                                systemlist5.push(value)
+                              }
+                              else if(value.system=='服务体系'){
+                                systemlist6.push(value)
+                              }
+                              else if(value.system=='技术体系'){
+                                systemlist7.push(value)
+                              }
+                              else if(value.system=='供应链与支撑体系'){
+                                systemlist8.push(value)
+                              }
+                          }
+                      )
+                      console.log(systemlist5,systemlist6,systemlist7,systemlist8)
+
+                      var apartmentSystem5 = systemlist5.map(
+                          function (value,index,arr) {  
+                              return value.depName
+                          }
+                      )
+                      var persentSystem5  = systemlist5.map(
+                          function (value,index,arr) {  
+                              return value.percent
+                          }
+                      )   
+                      
+                      var apartmentSystem6 = systemlist6.map(
+                          function (value,index,arr) {  
+                              return value.depName
+                          }
+                      )
+                      var persentSystem6  = systemlist6.map(
+                          function (value,index,arr) {  
+                              return value.percent
+                          }
+                      ) 
+          
+                      var apartmentSystem7 = systemlist7.map(
+                          function (value,index,arr) {  
+                              return value.depName
+                          }
+                      )
+                      var persentSystem7  = systemlist7.map(
+                          function (value,index,arr) {  
+                              return value.percent
+                          }
+                      ) 
+          
+                      var apartmentSystem8 = systemlist8.map(
+                          function (value,index,arr) {  
+                              return value.depName
+                          }
+                      )
+                      var persentSystem8  = systemlist8.map(
+                          function (value,index,arr) {  
+                              return value.percent
+                          }
+                      ) 
+                      console.log(persentSystem5,persentSystem6,persentSystem7,persentSystem8)
+
+
+
+
+            //参训人次
+            var part1= []
+            var part2 = []
+            var part3= []
+            var part4 = []
+            //筛选部门
+            this.list.participatingNumber.map(
+                function (value,index,arr) {  
+                    if(value.system=='营销体系'){
+                        part1.push(value)
+                    }
+                    else if(value.system=='服务体系'){
+                        part2.push(value)
+                    }
+                    else if(value.system=='技术体系'){
+                        part3.push(value)
+                    }
+                    else if(value.system=='供应链与支撑体系'){
+                        part4.push(value)
+                    }
+                }
+            )
+            console.log(part1,part2,part3,part4)
+            //筛选部门中的参训人次
+            var partSystem1 = part1.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime1 = part1.map(
+                function (value,index,arr) {  
+                    return value.personTime
+                }
+            )   
+            
+            var partSystem2 = part2.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime2  = part2.map(
+                function (value,index,arr) {  
+                    return value.personTime
+                }
+            ) 
+
+            var partSystem3 = part3.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime3  = part3.map(
+                function (value,index,arr) {  
+                    return value.personTime
+                }
+            ) 
+
+            var partSystem4 = part4.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime4  = part4.map(
+                function (value,index,arr) {  
+                    return value.personTime
+                }
+            ) 
+            console.log(partSystemtime1,partSystemtime2,partSystemtime3,partSystemtime4)
+
+
+
+            //参训人数
+            var part5= []
+            var part6 = []
+            var part7= []
+            var part8 = []
+            //筛选部门
+            this.list.participatingPersonTime.map(
+                function (value,index,arr) {  
+                    if(value.system=='营销体系'){
+                        part5.push(value)
+                    }
+                    else if(value.system=='服务体系'){
+                        part6.push(value)
+                    }
+                    else if(value.system=='技术体系'){
+                        part7.push(value)
+                    }
+                    else if(value.system=='供应链与支撑体系'){
+                        part8.push(value)
+                    }
+                }
+            )
+            console.log(part5,part6,part7,part8)
+            //筛选部门中的参训人数
+            var partSystem5 = part5.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime5 = part5.map(
+                function (value,index,arr) {  
+                    return value.number
+                }
+            )   
+            
+            var partSystem6 = part6.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime6  = part6.map(
+                function (value,index,arr) {  
+                    return value.number
+                }
+            ) 
+
+            var partSystem7 = part7.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime7  = part7.map(
+                function (value,index,arr) {  
+                    return value.number
+                }
+            ) 
+
+            var partSystem8 = part8.map(
+                function (value,index,arr) {  
+                    return value.depName
+                }
+            )
+            var partSystemtime8  = part8.map(
+                function (value,index,arr) {  
+                    return value.number
+                }
+            ) 
+            console.log(partSystemtime5,partSystemtime6,partSystemtime7,partSystemtime8)
             var myChart1 = echarts.init(document.getElementById('main1'));
             var myChart2 = echarts.init(document.getElementById('main2'));
             var myChart4 = echarts.init(document.getElementById('main4'));
             var myChart5 = echarts.init(document.getElementById('main5'));
-            const curInt = datalist;
-            option1= {
+            const curInt = 2;
+            option1 = {
                 title: {
                     text: '营销体系',
-                    left: 'center'
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        crossStyle: {
-                            color: '#999'
-                        }
-                    },
-                },
+                
                 grid: {
                     left: '10%',
-
-                    right: '0',
+                    top:'25%',
+                    right: '10%',
                     bottom: '30%'
                 },
-                xAxis: {
+                legend: {
+                    data: ['参训人次比率','参训人数比率','参训人次', '参训人数'],
+                    top:'6%',
+                    textStyle:{
+                        color: '#ffffff'//字体颜色
+                    },
+                },
+                xAxis: [{
                     type: 'category',
-                    data: apartmentSystem1,
-                    axisLabel: {  
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: partSystem5,
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
-                },
-                yAxis: {
-                    type: 'value'
-                },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                     splitLine:{//去除网格线
+                        show:false
+                    }, 
+                }],
+                dataZoom: [],
+                yAxis: [{
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'left',
+                    splitLine:{//去除网格线
+                        show:false
+                    },
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}%'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                }, {
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'right',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                }],
                 series: [{
-                    data: persentSystem1,
+                    name: '参训人次比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#AAF487' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(71,216,190, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem5
+                }, {
+                    name: '参训人数比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#F6D06F' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(249,165,137, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem1
+                },{
+                    name: '参训人次',
                     type: 'bar',
-                    barWidth:25,
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    data: partSystemtime1,
                     itemStyle:{
                         color: function(params){
-                            console.log(params)
-                            const key = params.name;
-                            if(key === datalist[0]){
-                            return '#e5323e';
-                            }else if(key === datalist[1]){
-                            return '#f2a93b';
-                            }
-                            else{
-                            return '#003366'
-                            }
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "rgba(61,126,235, 1)"
+                              },
+                                {
+                                  offset: 1,
+                                  color: "rgba(61,126,235, 0)"
+                                }
+                              ])
                         }
                         }
+                        },
+                }, {
+                    name: '参训人数',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
+                    data: partSystemtime5,
+                    itemStyle:{
+                        color: function(params){
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                        }
+                        }
+                        },
+
                 }]
             };
             myChart1.setOption(option1);
 
 
-            option2= {
+            option2 = {
                 title: {
                     text: '服务体系',
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        crossStyle: {
-                            color: '#999'
-                        }
-                    },
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
                 grid: {
                     left: '10%',
-
-                    right: '0',
+                    top:'25%',
+                    right: '10%',
                     bottom: '30%'
                 },
-                xAxis: {
+                legend: {
+                    data: ['参训人次比率','参训人数比率','参训人次', '参训人数'],
+                    top:'6%',
+                    textStyle:{
+                        color: '#ffffff'//字体颜色
+                    },
+                },
+                xAxis: [{
                     type: 'category',
-                    data: apartmentSystem2,
-                    axisLabel: {  
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: partSystem6,
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
-                },
-                yAxis: {
-                    type: 'value'
-                },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                     splitLine:{//去除网格线
+                        show:false
+                    }, 
+                }],
+                dataZoom: [],
+                yAxis: [{
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'left',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}%'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                    splitLine:{//去除网格线
+                        show:false
+                    },
+                }, {
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'right',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                }],
                 series: [{
-                    data: persentSystem2,
+                    name: '参训人次比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#AAF487' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(71,216,190, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem6
+                }, {
+                    name: '参训人数比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#F6D06F' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(249,165,137, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem2
+                },{
+                    name: '参训人次',
                     type: 'bar',
-                    barWidth:25,
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
                     itemStyle:{
                         color: function(params){
-                            console.log(params)
-                            const key = params.name;
-                            if(key === datalist[0]){
-                            return '#e5323e';
-                            }
-                            else if(key === datalist[1]){
-                                return '#f2a93b';
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "rgba(61,126,235, 1)"
+                              },
+                                {
+                                  offset: 1,
+                                  color: "rgba(61,126,235, 0)"
                                 }
-                            else{
-                            return '#003366'
-                            }
+                              ])
                         }
                         }
-
+                        },
+                    data: partSystemtime2
+                }, {
+                    name: '参训人数',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle:{
+                        color: function(params){
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                        }
+                        }
+                        },
+                    data: partSystemtime6
                 }]
             };
             myChart2.setOption(option2);
 
 
 
-            option4= {
+            option4 = {
                 title: {
                     text: '技术体系',
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        crossStyle: {
-                            color: '#999'
-                        }
-                    },
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
                 grid: {
                     left: '10%',
-
-                    right: '0',
+                    top:'25%',
+                    right: '10%',
                     bottom: '30%'
                 },
-                xAxis: {
+                legend: {
+                    data: ['参训人次比率','参训人数比率','参训人次', '参训人数'],
+                    top:'6%',
+                    textStyle:{
+                        color: '#ffffff'//字体颜色
+                    },
+                },
+                xAxis: [{
                     type: 'category',
-                    data: apartmentSystem3,
-                    axisLabel: {  
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: partSystem7,
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
-                },
-                yAxis: {
-                    type: 'value'
-                },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                     splitLine:{//去除网格线
+                        show:false
+                    }, 
+                }],
+                dataZoom: [],
+                yAxis: [{
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'left',
+                    axisLabel: {
+                        formatter: '{value}%'
+                    },
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}%'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                    splitLine:{//去除网格线
+                        show:false
+                    },
+                }, {
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'right',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                }],
                 series: [{
-                    data: persentSystem3,
+                    name: '参训人次比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#AAF487' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(71,216,190, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem7
+                }, {
+                    name: '参训人数比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#F6D06F' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(249,165,137, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem3
+                },{
+                    name: '参训人次',
                     type: 'bar',
-                    barWidth:25,
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
                     itemStyle:{
                         color: function(params){
-                            console.log(params)
-                            const key = params.name;
-                            if(key === datalist[0]){
-                            return '#e5323e';
-                            }
-                            else if(key === datalist[1]){
-                                return '#f2a93b';
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "rgba(61,126,235, 1)"
+                              },
+                                {
+                                  offset: 1,
+                                  color: "rgba(61,126,235, 0)"
                                 }
-                            else{
-                            return '#003366'
-                            }
+                              ])
                         }
                         }
-
+                        },
+                    data: partSystemtime3
+                }, {
+                    name: '参训人数',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle:{
+                        color: function(params){
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                        }
+                        }
+                        },
+                    data: partSystemtime7
                 }]
             };
             myChart4.setOption(option4);
 
 
-            option5= {
+            option5 = {
                 title: {
                     text: '供应链与支撑体系',
-                    left: 'center'
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        crossStyle: {
-                            color: '#999'
-                        }
-                    },
+                    left: 'center',
+                    textStyle:{ //设置主标题风格
+                        color:'#fff',//设置主标题字体颜色
+                        fontStyle:'',//主标题文字风格
+                        
+                        },
                 },
                 grid: {
                     left: '10%',
-
-                    right: '0',
+                    top:'25%',
+                    right: '10%',
                     bottom: '30%'
                 },
-                xAxis: {
+                legend: {
+                    data: ['参训人次比率','参训人数比率','参训人次', '参训人数'],
+                    top:'6%',
+                    textStyle:{
+                        color: '#ffffff'//字体颜色
+                    },
+                },
+                xAxis: [{
                     type: 'category',
-                    data: apartmentSystem4,
-                    axisLabel: {  
+                    axisTick: {
+                        alignWithLabel: true
+                    },
+                    data: partSystem8,
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
                         interval:0,  
                         rotate:40  
-                     }  
-                },
-                yAxis: {
-                    type: 'value'
-                },
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                     splitLine:{//去除网格线
+                        show:false
+                    }, 
+                }],
+                dataZoom: [],
+                yAxis: [{
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'left',
+                    axisLabel: {
+                        formatter: '{value}%'
+                    },
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}%'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                    splitLine:{//去除网格线
+                        show:false
+                    },
+                }, {
+                    type: 'value',
+                    name: '',
+                    min: 0,
+                    position: 'right',
+                    axisLabel: {
+                        textStyle:{
+                            color:'#fff',  //坐标的字体颜色
+                        },
+                        formatter: '{value}'
+                    },
+                    axisLine:{
+                        show:false, //隐藏坐标轴
+                        lineStyle:{
+                            color:'#fff',  //坐标轴的颜色
+                        },
+                    },
+                }],
                 series: [{
-                    data: persentSystem4,
+                    name: '参训人次比率',
+                    type: 'line',
+                    smooth:true,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#AAF487' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#47D8BE' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(71,216,190, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem8
+                }, {
+                    name: '参训人数比率',
+                    type: 'line',
+                    smooth:true,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top',
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 5,
+                            color: {
+                                type: 'linear',
+        
+                                colorStops: [{
+                                        offset: 0,
+                                        color: '#F6D06F' // 0% 处的颜色
+                                    },
+                                    {
+                                        offset: 0.4,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#F9A589' // 100% 处的颜色
+                                    }
+                                ],
+                                globalCoord: false // 缺省为 false
+                            },
+                            shadowColor: 'rgba(249,165,137, 0.5)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 7
+                        }
+                    },
+                    data: persentSystem4
+                },{
+                    name: '参训人次',
                     type: 'bar',
-                    barWidth:25,
+                    yAxisIndex: 1,
+                    barWidth: 10,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
                     itemStyle:{
                         color: function(params){
-                            console.log(params)
-                            const key = params.name;
-                            if(key === datalist[0]){
-                            return '#e5323e';
-                            }
-                            else if(key === datalist[1]){
-                                return '#f2a93b';
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: "rgba(61,126,235, 1)"
+                              },
+                                {
+                                  offset: 1,
+                                  color: "rgba(61,126,235, 0)"
                                 }
-                            else{
-                            return '#003366'
-                            }
+                              ])
                         }
                         }
-
+                        },
+                    data: partSystemtime4
+                }, {
+                    name: '参训人数',
+                    type: 'bar',
+                    yAxisIndex: 1,
+                    barWidth: 15,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'top'
+                        }
+                    },
+                    itemStyle:{
+                        color: function(params){
+                        console.log(params.name)
+                        if(params.name === datalist[0]){
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9191'
+                        }, {
+                            offset: 1,
+                            color: '#ff696a'
+                        }])
+                        }else if(params.name === datalist[1]){
+                            return new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#FFFC00'
+                                  },
+                                  {
+                                    offset: 1,
+                                    color: '#08E4DE'
+                                  }
+                                ])
+                        }else{
+                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                        }
+                        }
+                        },
+                    data: partSystemtime8
                 }]
             };
             myChart5.setOption(option5);
@@ -533,7 +1596,10 @@
 <style>
 	html,
 	body {
-		height: 100%
+        height: 100%;
+        background-image:url('./img/bg.png');
+		background-repeat: no-repeat;
+		background-size:100%
 	}
 
 	* {
@@ -561,7 +1627,7 @@
         display:flex
     }
     .echart_picture{
-        border:1px solid #e5323e;
+
         flex:1
     }
 </style>
