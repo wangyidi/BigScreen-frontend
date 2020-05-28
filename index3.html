@@ -182,7 +182,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -196,7 +196,7 @@
                         },
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -207,7 +207,7 @@
                     type: 'bar',
                     itemStyle: {
                         normal: {
-                            barBorderRadius: 15,
+                            
                             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                 offset: 0,
                                 color: '#ff9191'
@@ -257,7 +257,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -271,7 +271,7 @@
                         },
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -282,7 +282,7 @@
                     type: 'bar',
                     itemStyle: {
                         normal: {
-                            barBorderRadius: 15,
+                        
                             color: new echarts.graphic.LinearGradient(
                             0, 0, 0, 1, [{
                                 offset: 0,
@@ -625,7 +625,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -647,10 +647,11 @@
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}%'
+                        formatter: '{value}%',
+                        show:false
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -667,7 +668,7 @@
                         formatter: '{value}'
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -679,66 +680,40 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#47D8BE',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#AAF487' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
                         }
                     },
+                    
                     data: persentSystem5
                 }, {
                     name: '参训人数比率',
+                    
                     type: 'line',
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#F9A589',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#F6D06F' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -780,15 +755,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: "rgba(61,126,235, 1)"
-                              },
-                                {
-                                  offset: 1,
-                                  color: "rgba(61,126,235, 0)"
-                                }
-                              ])
+                            return '#fff'
                         }
                         }
                         },
@@ -827,7 +794,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                            return '#0286ff'
                         }
                         }
                         },
@@ -874,7 +841,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -893,10 +860,11 @@
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}%'
+                        formatter: '{value}%',
+                        show:false
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -916,7 +884,7 @@
                         formatter: '{value}'
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -928,30 +896,16 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#47D8BE',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#AAF487' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -964,30 +918,16 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#F9A589',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#F6D06F' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -1028,15 +968,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: "rgba(61,126,235, 1)"
-                              },
-                                {
-                                  offset: 1,
-                                  color: "rgba(61,126,235, 0)"
-                                }
-                              ])
+                            return '#fff'
                         }
                         }
                         },
@@ -1075,7 +1007,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                            return '#0286ff'
                         }
                         }
                         },
@@ -1123,7 +1055,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1145,10 +1077,11 @@
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}%'
+                        formatter: '{value}%',
+                        show:false
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1168,7 +1101,7 @@
                         formatter: '{value}'
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1180,30 +1113,16 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#47D8BE',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#AAF487' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -1216,30 +1135,16 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#F9A589',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#F6D06F' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -1280,15 +1185,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: "rgba(61,126,235, 1)"
-                              },
-                                {
-                                  offset: 1,
-                                  color: "rgba(61,126,235, 0)"
-                                }
-                              ])
+                            return '#fff'
                         }
                         }
                         },
@@ -1327,7 +1224,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                            return '#0286ff'
                         }
                         }
                         },
@@ -1374,7 +1271,7 @@
                         rotate:40  
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1396,10 +1293,11 @@
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}%'
+                        formatter: '{value}%',
+                        show:false
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1419,7 +1317,7 @@
                         formatter: '{value}'
                     },
                     axisLine:{
-                        show:false, //隐藏坐标轴
+                        show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
@@ -1432,30 +1330,16 @@
                     barWidth: 10,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#47D8BE',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#AAF487' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#47D8BE' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -1468,30 +1352,16 @@
                     smooth:true,
                     label: {
                         normal: {
-                            show: false,
+                            show: true,
                             position: 'top',
+                            formatter: "{c}%"
                         }
                     },
+                    color: '#F9A589',
                     lineStyle: {
                         normal: {
                             width: 5,
-                            color: {
-                                type: 'linear',
-        
-                                colorStops: [{
-                                        offset: 0,
-                                        color: '#F6D06F' // 0% 处的颜色
-                                    },
-                                    {
-                                        offset: 0.4,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }, {
-                                        offset: 1,
-                                        color: '#F9A589' // 100% 处的颜色
-                                    }
-                                ],
-                                globalCoord: false // 缺省为 false
-                            },
+                            color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
                             shadowOffsetY: 7
@@ -1532,15 +1402,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: "rgba(61,126,235, 1)"
-                              },
-                                {
-                                  offset: 1,
-                                  color: "rgba(61,126,235, 0)"
-                                }
-                              ])
+                            return '#fff'
                         }
                         }
                         },
@@ -1579,7 +1441,7 @@
                                   }
                                 ])
                         }else{
-                            return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{offset: 0, color: 'rgba(15,197,243,1)'}, {offset: 1, color: 'rgba(15,197,243,0)'}])
+                            return '#0286ff'
                         }
                         }
                         },

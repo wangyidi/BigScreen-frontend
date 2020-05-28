@@ -144,7 +144,7 @@
                     console.log(that.trainingNum)
                     that.change(that.trainingNum);
                     
-                },15000)
+                },5000)
             },
             getdata(){
                 var that = this
@@ -175,7 +175,12 @@
                 option1 = {
                     title: {
 						text: '参训人数',
-						left: '45%'
+                        left: '45%',
+                        textStyle:{ //设置主标题风格
+                            color:'#fff',//设置主标题字体颜色
+                            fontStyle:'',//主标题文字风格
+                            
+                            },
 					},
                     grid: {
                         left: '20%',
@@ -190,12 +195,20 @@
                             interval:0,  
                             rotate:40,
                             fontSize: 8,
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
                          },
-
 
                     },
                     yAxis: {
                         type: 'value',
+                        axisLabel: {
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
+                            show:true
+                        },
                         
                     },
                     series: [{
@@ -207,7 +220,12 @@
                 option2 = {
                     title: {
 						text: '参训人次',
-						left: '45%'
+                        left: '45%',
+                        textStyle:{ //设置主标题风格
+                            color:'#fff',//设置主标题字体颜色
+                            fontStyle:'',//主标题文字风格
+                            
+                            },
 					},
                     grid: {
                         left: '20%',
@@ -222,10 +240,19 @@
                             interval:0,  
                             rotate:40,
                             fontSize: 8,
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
                          },
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        axisLabel: {
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
+                            show:true
+                        },
                     },
                     series: [{
                         data:obj.lastYearTrainCount,
@@ -236,7 +263,12 @@
                 option3 = {
                     title: {
 						text: '培训场次',
-						left: '45%'
+                        left: '45%',
+                        textStyle:{ //设置主标题风格
+                            color:'#fff',//设置主标题字体颜色
+                            fontStyle:'',//主标题文字风格
+                            
+                            },
 					},
                     grid: {
                         left: '20%',
@@ -251,10 +283,19 @@
                             interval:0,  
                             rotate:40,
                             fontSize: 8,
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
                          },
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        axisLabel: {
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
+                            show:true
+                        },
                     },
                     series: [{
                         data: obj.trainingTimes,
@@ -265,7 +306,12 @@
                 option4 = {
                     title: {
 						text: '培训天数',
-						left: '45%'
+                        left: '45%',
+                        textStyle:{ //设置主标题风格
+                            color:'#fff',//设置主标题字体颜色
+                            fontStyle:'',//主标题文字风格
+                            
+                            },
 					},
                     grid: {
                         left: '20%',
@@ -280,10 +326,19 @@
                             interval:0,  
                             rotate:40,
                             fontSize: 8,
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
                          },
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        axisLabel: {
+                            textStyle:{
+                                color:'#fff',  //坐标的字体颜色
+                            },
+                            show:true
+                        },
                     },
                     series: [{
                         data: obj.trainingDays,
@@ -441,7 +496,6 @@
     }
     .echart_out{
         flex:1;
-        border:1px solid #f00;
     }
     .content-bottom{
         display:flex

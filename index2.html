@@ -50,7 +50,7 @@
 						<div class="box">
 							<div id="transverseRoll">
 								<div class="contentscroll" v-for='(item,index) in scrollList1' :key='index' >
-									<span style="color:#FF0000">{{item.className}}</span>
+									<span>{{item.className}}</span>
 								</div>
 						</div>
 						</div>
@@ -61,7 +61,7 @@
 						<div class="box">
 							<div id="transverseRoll2">
 								<div class="contentscroll" v-for='(item,index) in scrollList2' :key='index'>
-									<span style="color:#FF0000">{{item.className}}</span>
+									<span>{{item.className}}</span>
 								</div>
 						</div>
 						</div>
@@ -74,7 +74,7 @@
 					<div id="mainpie" style="width:400px;height:200px"></div>
 				</div>
 				<div class='right_2'>
-					<div id="mainbar" style="width:400px;height:200px"></div>
+					<div id="mainbar" style="width:400px;height:240px"></div>
 				</div>
 				<div class='right_3'>
 					<p class='right_3_title'>课程种类分布情况</p>
@@ -129,8 +129,12 @@
 			scrollList1:[
 				{className:'课程详情'},
 				{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
 			],
 			scrollList2:[
+			{className:'课程详情'},
+			{className:'课程详情'},
 			{className:'课程详情'},
 			{className:'课程详情'},
 		],
@@ -154,187 +158,231 @@
 
 		},
 		methods: {
-			drowbar(x,y) {
+			drowbar(x,y,z) {
+				console.log(z)
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
 					title: {
 						text: '覆盖人次增长率',
-						left: 'center'
-					},
-					tooltip: {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'cross',
-							crossStyle: {
-								color: '#999'
-							}
-						},
-						formatter: '{b0}<br /> {a0}:{c0}%'
+						left: 'center',
+						textStyle:{ //设置主标题风格
+							color:'#fff',//设置主标题字体颜色
+							fontStyle:'',//主标题文字风格
+							
+							},
 					},
 					grid: {
-						left: '60',
-						top:'40',
-						right: '50',
-						bottom: '60'
+						left: '20%',
+						top:'20%',
+						right: '15%',
+						bottom: '20%'
 					},
-
-					xAxis: [
-						{
-							type: 'category',
-							data: x,
-							axisPointer: {
-								type: 'shadow'
+					legend: {
+						data: ['参训人次比率','参训人次'],
+						top:'10%',
+						textStyle:{
+							color: '#ffffff'//字体颜色
+						},
+					},
+					xAxis: [{
+						type: 'category',
+						axisTick: {
+							alignWithLabel: true
+						},
+						data: x,
+						axisLabel: {
+							textStyle:{
+								color:'#fff',  //坐标的字体颜色
 							},
-							axisLabel: {  
-								interval:0,  
-								rotate:40  
-							 } 
-						}
-					],
-					yAxis: [
-						{
-							type: 'value',
-							name: '',
-							min: 0,
-							max: 100,
-							interval: 20,
-							axisLabel: {
-								formatter: '{value}%'
+							interval:0,  
+							rotate:40  
+						},
+						axisLine:{
+							show:true, //隐藏坐标轴
+							lineStyle:{
+								color:'#fff',  //坐标轴的颜色
+							},
+						},
+						 splitLine:{//去除网格线
+							show:false
+						}, 
+					}],
+					dataZoom: [],
+					yAxis: [{
+						type: 'value',
+						name: '',
+						min: 0,
+						position: 'left',
+						axisLabel: {
+							textStyle:{
+								color:'#fff',  //坐标的字体颜色
+							},
+							formatter: '{value}%'
+						},
+						axisLine:{
+							show:true, //隐藏坐标轴
+							lineStyle:{
+								color:'#fff',  //坐标轴的颜色
+							},
+						},
+						splitLine:{//去除网格线
+							show:false
+						},
+					}, {
+						type: 'value',
+						name: '',
+						min: 0,
+						position: 'right',
+						axisLabel: {
+							textStyle:{
+								color:'#fff',  //坐标的字体颜色
+							},
+							formatter: '{value}'
+						},
+						axisLine:{
+							show:true, //隐藏坐标轴
+							lineStyle:{
+								color:'#fff',  //坐标轴的颜色
+							},
+						},
+					}],
+					series: [{
+						name: '参训人次比率',
+						type: 'line',
+						smooth:true,
+						label: {
+							normal: {
+								show: false,
+								position: 'top',
 							}
 						},
-						{
-							type: 'value',
-							name: '',
-							min: 0,
-							max: 25,
-							interval: 0,
-
-						}
-					],
-					series: [
-
-						{
-							name: '覆盖人次增长率',
-							type: 'line',
-							data: y.map(function (value,index,arr) {  
-								return value*100
-							}),
-						}
-					]
+						color:'47D8BE',
+						lineStyle: {
+							normal: {
+								width: 5,
+								color: {
+									type: 'linear',
+			
+									colorStops: [{
+											offset: 0,
+											color: '#AAF487' // 0% 处的颜色
+										},
+										{
+											offset: 0.4,
+											color: '#47D8BE' // 100% 处的颜色
+										}, {
+											offset: 1,
+											color: '#47D8BE' // 100% 处的颜色
+										}
+									],
+									globalCoord: false // 缺省为 false
+								},
+								shadowColor: 'rgba(71,216,190, 0.5)',
+								shadowBlur: 10,
+								shadowOffsetY: 7
+							}
+						},
+						data: y
+					},{
+						name: '参训人次',
+						type: 'bar',
+						yAxisIndex: 1,
+						barWidth: 10,
+						label: {
+							normal: {
+								show: false,
+								position: 'top'
+							}
+						},
+						itemStyle:{
+							color: function(params){
+							console.log(params.name)
+							return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#ff9191'
+                            }, {
+                                offset: 1,
+                                color: '#ff696a'
+                            }])
+							}
+							},
+						data: z
+					}]
 				};
 				myChartbar.setOption(optionbar)
 			},
-			drowpie(x,y) {
+			drowpie(x) {
+				console.log(x)
 				var myChartpie = echarts.init(document.getElementById('mainpie'));
-				// 多系列无法定位
-
-				var colors = [{
-					type: 'linear',
-					x: 0, x2: 1, y: 0, y2: 0,
-					colorStops: [{
-						offset: 0,
-						color: '#27f7fa'
-					}, {
-						offset: 0.5,
-						color: '#27f7fa'
-					}, {
-						offset: 0.5,
-						color: '#23c3e2dd'
-					}, {
-						offset: 1,
-						color: '#23c3e2dd'
-					}]
-				}, {
-					type: 'linear',
-					x: 0, x2: 1, y: 0, y2: 0,
-					colorStops: [{
-						offset: 0,
-						color: '#7153d3aa'
-					}, {
-						offset: 0.5,
-						color: '#7153d3aa'
-					}, {
-						offset: 0.5,
-						color: '#352a6b'
-					}, {
-						offset: 1,
-						color: '#352a6b'
-					}]
-				}];
-
-
-				var barWidth = 30;
-
 				optionpie = {
 					title: {
-						text: '覆盖人次增长率',
-						left: 'center'
+						text: '各体系参与人数与体系总人数的比例',
+						left: 'center',
+						top:0,
+						textStyle: {
+							color: '#ccc'
+						}
 					},
-					grid: {
-						left: '60',
-						top:'40',
-						right: '50',
-						bottom: '40'
+				
+					tooltip: {
+						trigger: 'item',
+						formatter: "{b} : {c} ({d}%)"
 					},
-					xAxis: {
-						data:x,
-						axisLabel: {  
-							interval:0,  
-								 
-						 },
-					},
-					yAxis: {
-						axisLabel: {
-							formatter: '{value}%',
-							color: '#000',
-							textStyle: {
-								fontSize: 12
-							},
-						},
+				
+					visualMap: {
+						show: false,
+						min: 500,
+						max: 600,
+						inRange: {
+							//colorLightness: [0, 1]
+						}
 					},
 					series: [{
-						z: 1,
-						type: 'bar',
-						barWidth: barWidth,
-						data:y.map(function (value,index,arr) {  
-							return value*100
+						
+						type: 'pie',
+						radius: '50%',
+						center: ['45%', '60%'],
+						color: ['rgb(131,249,103)', '#FBFE27', '#FE5050', '#1DB7E5'], //'#FBFE27','rgb(11,228,96)','#FE5050'
+						data: x.sort(function(a, b) {
+							return a.value - b.value
 						}),
-						itemStyle: {
+						roseType: 'radius',
+				
+						label: {
 							normal: {
-								color: colors[1]
+								formatter: ['{c|{c}}', '{b|{b}}'].join('\n'),
+								rich: {
+									c: {
+										color: 'rgb(241,246,104)',
+										fontSize: 20,
+										fontWeight:'bold',
+										lineHeight: 5
+									},
+									b: {
+										color: 'rgb(98,137,169)',
+										fontSize: 15,
+										height: 40
+									},
+								},
 							}
 						},
-					}, {
-						z: 2,
-						name: '底部',
-						type: 'pictorialBar',
-						data: [1, 1, 1, 1, 1, 1, 1],
-						symbol: 'diamond',
-						symbolOffset: [0, '50%'],
-						symbolSize: [barWidth, 10],
-						itemStyle: {
+						labelLine: {
 							normal: {
-								color: colors[1]
+								lineStyle: {
+									color: 'rgb(98,137,169)',
+								},
+								smooth: 0.2,
+								length: 10,
+								length2: 20,
+				
 							}
 						},
-					}, {
-						z: 3,
-						name: '上部1',
-						type: 'pictorialBar',
-						symbolPosition: 'end',
-						data: y.map(function (value,index,arr) {  
-							return value*100
-						}),
-						symbol: 'diamond',
-						symbolOffset: [0, '-50%'],
-						symbolSize: [barWidth - 4, 10 * (barWidth - 4) / barWidth],
 						itemStyle: {
 							normal: {
-								borderColor: '#7153d3',
-								borderWidth: 2,
-								color: '#352a6b'
+								shadowColor: 'rgba(0, 0, 0, 0.8)',
+								shadowBlur: 50,
 							}
-						},
+						}
 					}]
 				};
 				myChartpie.setOption(optionpie);
@@ -617,7 +665,7 @@
 				console.log(countryData)
 				
 				optionworld = {
-					backgroundColor: '#fff',
+					
 					title: {
 						text: '',
 						left: 'center'
@@ -632,18 +680,19 @@
 				
 						inRange: {
 							
-							color: ['#1BC8CC'] // 蓝绿
+							color: ['yellow'] // 蓝绿
 						},
 					   show:false
 					},
 					series: [{
 						type: 'map',
 						mapType: 'world',
+						zoom:1.2,
 						itemStyle: {
 							areaColor: 'rgba(0,0,0,0)',
 							borderColor: '#72a8ff',
 							normal: {
-								areaColor: '#092240',
+								areaColor: 'green',
 		
 							},
 						},
@@ -812,7 +861,7 @@
 					geo: {
 						show: true,
 						map: mapName,
-						zoom: 1,  
+						zoom: 1.2,  
 						label: {
 							normal: {
 								show: false
@@ -857,7 +906,7 @@
 					{
 						name: 'iphone4',
 						type: 'map',
-						zoom: 1,   
+						zoom: 1.2,   
 						mapType: 'china',
 						roam: false,
 						itemStyle: {
@@ -1099,8 +1148,8 @@
 					}
 					that.drowMapworld(data.countryList)
 					that.drowmap(data.calssNameList)
-					that.drowpie(data.sysList,data.proportionList)
-					that.drowbar(data.yearList,data.trainScale)
+					that.drowpie(data.sysList)
+					that.drowbar(data.yearList,data.trainScale,data.trainCountScale)
 					
                 }
             })
@@ -1113,7 +1162,11 @@
 <style>
 	html,
 	body {
-		height: 100%
+		height: 100%;
+		background-image:url('./img/bg.png');
+		background-repeat: no-repeat;
+		background-size:100%;
+		color:#fff
 	}
 
 	* {
@@ -1132,12 +1185,12 @@
 	}
 
 	.left_content {
-		width: 30%;
+		width: 20%;
 
 	}
 
 	.center_content {
-		width: 40%;
+		width: 50%;
 	}
 
 	.center_content2 {
@@ -1149,14 +1202,14 @@
 
 	.scroll_1{
 		flex: 1;
-		border: 1px solid #f00;
+
 
 	}
 
 	.scroll_2 {
 		flex: 1;
 		margin-left: 20px;
-		border: 1px solid #f00;
+
 	}
 
 	.right_content {
@@ -1166,27 +1219,27 @@
 	.left_content1 {
 		height: 100px;
 		text-align: center;
-		border: 1px solid #f00
+		
 	}
 
 	.left_content2 {
 		height: 100px;
 		margin-top: 50px;
 		text-align: center;
-		border: 1px solid #f00
+		
 	}
 
 	.left_content3 {
 		height: 100px;
 		margin-top: 50px;
 		text-align: center;
-		border: 1px solid #f00
+		
 	}
 
 	.left_content4 {
 		height: 200px;
-		margin-top: 100px;
-		border: 1px solid #f00;
+		margin-top: 80px;
+		
 	}
 
 	.center_map {
@@ -1196,20 +1249,20 @@
 
 	.right_1 {
 		height: 180px;
-		border: 1px solid #f00;
+		
 		padding: 10px
 	}
 
 	.right_2 {
 		height: 180px;
-		border: 1px solid #f00;
+		
 		margin-top: 50px;
 		padding: 10px
 	}
 
 	.right_3 {
 		height: 180px;
-		border: 1px solid #f00;
+		
 		margin-top: 50px;
 		padding: 10px 10px 10px 10px
 	}
