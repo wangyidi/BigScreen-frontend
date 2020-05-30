@@ -173,7 +173,9 @@
                 xAxis: {
                     type: 'category',
                     data: apartmentYear0,
-
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                      axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
@@ -195,6 +197,9 @@
                             color:'#fff',  //坐标的字体颜色
                         },
                     },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLine:{
                         show:true, //隐藏坐标轴
                         lineStyle:{
@@ -249,6 +254,9 @@
                 xAxis: {
                     type: 'category',
                     data: apartmentYear1,
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
@@ -270,6 +278,9 @@
                             color:'#fff',  //坐标的字体颜色
                         },
                     },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLine:{
                         show:true, //隐藏坐标轴
                         lineStyle:{
@@ -613,9 +624,9 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    axisTick: {
-                        alignWithLabel: true
-                    },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     data: partSystem5,
                     axisLabel: {
                         textStyle:{
@@ -643,12 +654,15 @@
                     splitLine:{//去除网格线
                         show:false
                     },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
                         formatter: '{value}%',
-                        show:false
+                        
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -661,11 +675,15 @@
                     name: '',
                     min: 0,
                     position: 'right',
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        show:false
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -688,7 +706,7 @@
                     color: '#47D8BE',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
@@ -712,7 +730,7 @@
                     color: '#F9A589',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
@@ -829,9 +847,9 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    axisTick: {
-                        alignWithLabel: true
-                    },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     data: partSystem6,
                     axisLabel: {
                         textStyle:{
@@ -861,8 +879,11 @@
                             color:'#fff',  //坐标的字体颜色
                         },
                         formatter: '{value}%',
-                        show:false
+                    
                     },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLine:{
                         show:true, //隐藏坐标轴
                         lineStyle:{
@@ -881,13 +902,18 @@
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        show:false
                     },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLine:{
                         show:true, //隐藏坐标轴
                         lineStyle:{
                             color:'#fff',  //坐标轴的颜色
                         },
+                        
                     },
                 }],
                 series: [{
@@ -904,7 +930,7 @@
                     color: '#47D8BE',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
@@ -926,7 +952,7 @@
                     color: '#F9A589',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
@@ -1043,9 +1069,9 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    axisTick: {
-                        alignWithLabel: true
-                    },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     data: partSystem7,
                     axisLabel: {
                         textStyle:{
@@ -1070,6 +1096,9 @@
                     name: '',
                     min: 0,
                     position: 'left',
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         formatter: '{value}%'
                     },
@@ -1078,7 +1107,7 @@
                             color:'#fff',  //坐标的字体颜色
                         },
                         formatter: '{value}%',
-                        show:false
+                        
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -1094,11 +1123,15 @@
                     name: '',
                     min: 0,
                     position: 'right',
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        show:false
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -1121,7 +1154,7 @@
                     color: '#47D8BE',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
@@ -1143,7 +1176,7 @@
                     color: '#F9A589',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
@@ -1259,9 +1292,9 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    axisTick: {
-                        alignWithLabel: true
-                    },
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        },        
                     data: partSystem8,
                     axisLabel: {
                         textStyle:{
@@ -1286,6 +1319,9 @@
                     name: '',
                     min: 0,
                     position: 'left',
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         formatter: '{value}%'
                     },
@@ -1294,7 +1330,7 @@
                             color:'#fff',  //坐标的字体颜色
                         },
                         formatter: '{value}%',
-                        show:false
+                       
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -1310,11 +1346,15 @@
                     name: '',
                     min: 0,
                     position: 'right',
+                    axisTick:{
+                        lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+                        }, 
                     axisLabel: {
                         textStyle:{
                             color:'#fff',  //坐标的字体颜色
                         },
-                        formatter: '{value}'
+                        formatter: '{value}',
+                        show:false
                     },
                     axisLine:{
                         show:true, //隐藏坐标轴
@@ -1338,7 +1378,7 @@
                     color: '#47D8BE',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#47D8BE',
                             shadowColor: 'rgba(71,216,190, 0.5)',
                             shadowBlur: 10,
@@ -1360,7 +1400,7 @@
                     color: '#F9A589',
                     lineStyle: {
                         normal: {
-                            width: 5,
+                            width: 2,
                             color: '#F9A589',
                             shadowColor: 'rgba(249,165,137, 0.5)',
                             shadowBlur: 10,
@@ -1411,7 +1451,7 @@
                     name: '参训人数',
                     type: 'bar',
                     yAxisIndex: 1,
-                    barWidth: 15,
+                    barWidth: 10,
                     label: {
                         normal: {
                             show: false,
@@ -1474,9 +1514,9 @@
 		height: 100%
 	}
 	.content {
-        padding: 2% 2%;
-        width:96%;
-        height:96%
+    
+        width:100%;
+        height:100%
 	}
     .content_Top{
         width:100%;

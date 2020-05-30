@@ -22,17 +22,17 @@
 		<div class='content'>
 			<div class='left_content'>
 				<div class='left_content1'>
-					<span style='display:block;margin-top:20px'>公司总人数</span></br>
-					<span>{{companyCount}}</span>
+					<span style='display:block;margin-top:20px;color:aqua'>公司总人数</span>
+					<span style='color:aqua'>{{companyCount}}</span>
 					
 				</div>
 				<div class='left_content2'>
-					<span style='display:block;margin-top:20px'>参训人数覆盖率</span></br>
-					<span>{{newJoinCount}}%</span>
+					<span style='display:block;margin-top:20px;color:aqua'>参训人数覆盖率</span>
+					<span style='color:aqua'>{{newJoinCount}}%</span>
 				</div>
 				<div class='left_content3'>
-					<span style='display:block;margin-top:20px'>新员工已参训人数</span></br>
-					<span>{{trainCount}}</span>
+					<span style='display:block;margin-top:20px;color:aqua'>新员工已参训人数</span>
+					<span style='color:aqua'>{{trainCount}}</span>
 				</div>
 				<div class='left_content4'>
 					<div id="mainworld" style="width:400px;height:200px"></div>
@@ -41,7 +41,9 @@
 
 			<div class='center_content'>
 				<div class='center_map'>
+					<div style='margin-top:5%'>
 					<div id="main" style="width:600px;height:400px"></div>
+					</div>
 				</div>
 
 				<div class='center_content2' v-if='isshow'>
@@ -71,7 +73,9 @@
 
 			<div class='right_content'>
 				<div class='right_1'>
-					<div id="mainpie" style="width:400px;height:200px"></div>
+					<div style='margin-top:5%'>
+					<div id="mainpie" style="width:400px;height:220px"></div>
+					</div>
 				</div>
 				<div class='right_2'>
 					<div id="mainbar" style="width:400px;height:240px"></div>
@@ -81,34 +85,34 @@
 					<div class='right_3_center'>
 
 						<div class='one'>
-							<span>领导力</span></br>
-							<span>{{num1}}</span>
+							<span>{{num1}}</span></br>
+							<span>领导力</span>
 
 						</div>
 
 						<div class='two'>
-							<span>专业技能</span></br>
-							<span>{{num2}}</span>
+							<span>{{num2}}</span></br>
+							<span>专业技能</span>
 						</div>
 
 
 						<div class='three'>
-							<span>综合定制</span></br>
-							<span>{{num3}}</span>
+							<span>{{num3}}</span></br>
+							<span>综合定制</span>
 						</div>
 
 					</div>
 					<div class='right_3_bottom'>
 
 						<div class='four'>
-							<span>通用技能</span></br>
-							<span>{{num4}}</span>
+							<span>{{num4}}</span></br>
+							<span>通用技能</span>
 						</div>
 
 
 						<div class='five'>
-							<span>新员工</span></br>
-							<span>{{num5}}</span>
+							<span>{{num5}}</span></br>
+							<span>新员工</span>
 						</div>
 
 					</div>
@@ -163,7 +167,7 @@
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
 					title: {
-						text: '覆盖人次增长率',
+						text: '参训人数/人次覆盖率',
 						left: 'center',
 						textStyle:{ //设置主标题风格
 							color:'#fff',//设置主标题字体颜色
@@ -178,7 +182,7 @@
 						bottom: '20%'
 					},
 					legend: {
-						data: ['参训人次比率','参训人次'],
+						data: ['参训人次比率','参训人数'],
 						top:'10%',
 						textStyle:{
 							color: '#ffffff'//字体颜色
@@ -284,8 +288,8 @@
 						},
 						data: y
 					},{
-						name: '参训人次',
-						type: 'bar',
+						name: '参训人数',
+						type: 'line',
 						yAxisIndex: 1,
 						barWidth: 10,
 						label: {
@@ -294,18 +298,25 @@
 								position: 'top'
 							}
 						},
-						itemStyle:{
-							color: function(params){
-							console.log(params.name)
-							return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#ff9191'
-                            }, {
-                                offset: 1,
-                                color: '#ff696a'
-                            }])
-							}
+						color:'#ff696a',
+						lineStyle: {
+							normal: {
+								width: 5,
+								color: function(params){
+									console.log(params.name)
+									return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+										offset: 0,
+										color: '#ff9191'
+									}, {
+										offset: 1,
+										color: '#ff696a'
+									}])
 							},
+								shadowColor: 'rgba(71,216,190, 0.5)',
+								shadowBlur: 10,
+								shadowOffsetY: 7
+							}
+						},
 						data: z
 					}]
 				};
@@ -316,75 +327,52 @@
 				var myChartpie = echarts.init(document.getElementById('mainpie'));
 				optionpie = {
 					title: {
-						text: '各体系参与人数与体系总人数的比例',
+						text: '四大体系参训人数覆盖率占比',
 						left: 'center',
-						top:0,
-						textStyle: {
-							color: '#fff'
-						}
+						textStyle:{ //设置主标题风格
+							color:'#fff',//设置主标题字体颜色
+							fontStyle:'',//主标题文字风格
+							
+							},
 					},
-				
 					tooltip: {
 						trigger: 'item',
-						formatter: "{b} : {c} ({d}%)"
+						formatter: "{a} <br/>{b}: {c} ({d}%)"
 					},
-				
-					visualMap: {
-						show: false,
-						min: 500,
-						max: 600,
-						inRange: {
-							//colorLightness: [0, 1]
-						}
-					},
-					series: [{
-						
-						type: 'pie',
-						radius: '50%',
-						center: ['45%', '60%'],
-						color: ['rgb(131,249,103)', '#FBFE27', '#FE5050', '#1DB7E5'], //'#FBFE27','rgb(11,228,96)','#FE5050'
-						data: x.sort(function(a, b) {
-							return a.value - b.value
-						}),
-						roseType: 'radius',
-				
-						label: {
-							normal: {
-								formatter: ['{c|{c}}', '{b|{b}}'].join('\n'),
-								rich: {
-									c: {
-										color: 'rgb(241,246,104)',
-										fontSize: 20,
-										fontWeight:'bold',
-										lineHeight: 5
-									},
-									b: {
-										color: 'rgb(98,137,169)',
-										fontSize: 15,
-										height: 40
-									},
+	
+					series: [
+						{
+							name:'访问来源',
+							type:'pie',
+							radius: ['50%', '70%'],
+							center: ["50%", "55%"], 
+							avoidLabelOverlap: false,
+							label: {
+							
+								normal: {
+									
+									show: true,
+									position: 'center',
+									position: 'outside',
 								},
-							}
-						},
-						labelLine: {
-							normal: {
-								lineStyle: {
-									color: 'rgb(98,137,169)',
-								},
-								smooth: 0.2,
-								length: 10,
-								length2: 20,
-				
-							}
-						},
-						itemStyle: {
-							normal: {
-								shadowColor: 'rgba(0, 0, 0, 0.8)',
-								shadowBlur: 50,
-							}
+								emphasis: {
+									show: true,
+									textStyle: {
+										fontSize: '30',
+										fontWeight: 'bold'
+									}
+								}
+							},
+							labelLine: {
+								normal: {
+									show: true
+								}
+							},
+							data:x
 						}
-					}]
+					]
 				};
+				
 				myChartpie.setOption(optionpie);
 			},
 			drowMapworld(worlddata) {
@@ -671,7 +659,7 @@
 						left: 'center'
 					},
 					roam: true,
-				
+					
 					visualMap: {
 						orient: 'horizontal',
 				
@@ -687,7 +675,8 @@
 					series: [{
 						type: 'map',
 						mapType: 'world',
-						zoom:1.2,
+						
+						zoom:2,
 						itemStyle: {
 							areaColor: 'rgba(0,0,0,0)',
 							borderColor: '#72a8ff',
@@ -1160,123 +1149,123 @@
 </script>
 
 <style>
-	html,
-	body {
-		height: 100%;
-		background-image:url('./img/bg.png');
-		background-repeat: no-repeat;
-		background-size:100%;
-		color:#fff
-	}
-
-	* {
-		margin: 0;
-		padding: 0
-	}
-
-	#app {
-		width: 100%;
-		height: 100%;
-	}
-
-	.content {
-		padding: 20px 20px;
-		display: flex
-	}
+		html,
+		body {
+			height: 100%;
+			background-image:url('./img/bg.png');
+			background-repeat: no-repeat;
+			background-size:100%
+		}
+	
+		* {
+			margin: 0;
+			padding: 0
+		}
+	
+		#app {
+			width: 100%;
+			height: 100%
+		}
+		.content {
+			width:100%;
+			height:100%;
+			display:flex;
+			color:#fff
+		}
 
 	.left_content {
 		width: 20%;
+		font-size:30px;
+		font-weight: bold;
+		height:100%
 
 	}
 
 	.center_content {
 		width: 50%;
+		height:100%
 	}
 
 	.center_content2 {
-		height: 200px;
-		display: flex;
-		padding-left: 20px;
-		padding-right: 20px
+		height: 25%;
+		
 	}
 
 	.scroll_1{
-		flex: 1;
-
+		width: 30%;
+		float: left;
+		margin-left: 15%;
 
 	}
 
 	.scroll_2 {
-		flex: 1;
-		margin-left: 20px;
-
+		width: 30%;
+		float: left;
 	}
 
 	.right_content {
 		width: 30%;
+		height:100%
 	}
 
 	.left_content1 {
-		height: 100px;
+		height: 20%;
 		text-align: center;
+		margin-top: 5%;
 		
 	}
 
 	.left_content2 {
-		height: 100px;
-		margin-top: 50px;
+		height: 20%;
+		margin-top: 5%;
 		text-align: center;
 		
 	}
 
 	.left_content3 {
-		height: 100px;
-		margin-top: 50px;
+		height: 20%;
+		margin-top: 5%;
 		text-align: center;
 		
 	}
 
 	.left_content4 {
-		height: 200px;
-		margin-top: 80px;
+		height: 20%;
+		margin-top: 5%;
 		
 	}
 
 	.center_map {
-		height: 485px;
-		padding: 10px
+		height: 70%;
+
 	}
 
 	.right_1 {
-		height: 180px;
-		
-		padding: 10px
+		height: 30%;
 	}
 
 	.right_2 {
-		height: 180px;
-		
-		margin-top: 50px;
-		padding: 10px
+		height: 30%;
+		margin-top:2%
 	}
 
 	.right_3 {
-		height: 180px;
+		height: 33%;
 		
-		margin-top: 50px;
-		padding: 10px 10px 10px 10px
+		overflow: hidden;
 	}
 
 	.right_3_title {
 		text-align: center;
 		font-size: 18px;
 		font-weight: bold;
+		margin-top: 10%;
 	}
 
 	.right_3_center {
 		height: 60px;
 
-		margin-top: 10px;
+		margin-top: 10%;
 		position: relative;
 	}
 
@@ -1291,7 +1280,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: green;
+		background: radial-gradient(circle at 70px 70px,#18D764,#000000);
 		position: absolute;
 		left: 60px;
 		font-size:12px;
@@ -1304,7 +1293,7 @@
 		width: 100px;
 		height: 80px;
 		border-radius: 50%;
-		background: red;
+		background: radial-gradient(circle at 70px 70px,red,#000000);
 		position: absolute;
 		left: 160px;
 		text-align:center;
@@ -1316,7 +1305,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: gray;
+		background: radial-gradient(circle at 70px 70px,#AE33CC,#000000);
 		position: absolute;
 		left: 300px;
 		font-size:12px;
@@ -1329,7 +1318,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: #000088;
+		background: radial-gradient(circle at 70px 70px,#00FFFF,#000000);
 		position: absolute;
 		left: 100px;
 		font-size:12px;
@@ -1342,7 +1331,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: orange;
+		background: radial-gradient(circle at 70px 70px,orange,#000000);
 		position: absolute;
 		left: 260px;
 		font-size:12px;
@@ -1367,7 +1356,9 @@
 		background-color: #d3dce6;
 	}
 
-
+	.right_3_center span:nth-child(1){
+		font-weight:bold
+	}
 
 
         .box{
@@ -1375,13 +1366,15 @@
             width:170px;
             height:84px;
             line-height:20px;
-            overflow:hidden;
+			overflow:hidden;
+			color:cornsilk
 		}
 		.scroll_title{
 			font-size:16px;
 			color:#fff;
 			text-align: center;
-			margin-top:20px
+			margin-top:20px;
+			color:red
 		}
         .box .contentscroll{
             list-style-type:none;
