@@ -22,17 +22,17 @@
 		<div class='content'>
 			<div class='left_content'>
 				<div class='left_content1'>
-					<span style='display:block;margin-top:20px;color:aqua'>公司总人数</span>
-					<span style='color:aqua'>{{companyCount}}</span>
+					<span style='display:block;margin-top:20px;color:#98FB98'>公司总人数</span>
+					<span style='color:#98FB98;font-size:40px;'>{{companyCount}}</span>
 					
 				</div>
 				<div class='left_content2'>
 					<span style='display:block;margin-top:20px;color:aqua'>参训人数覆盖率</span>
-					<span style='color:aqua'>{{newJoinCount}}%</span>
+					<span style='color:aqua;font-size:40px;'>{{newJoinCount}}%</span>
 				</div>
 				<div class='left_content3'>
-					<span style='display:block;margin-top:20px;color:aqua'>新员工已参训人数</span>
-					<span style='color:aqua'>{{trainCount}}</span>
+					<span style='display:block;margin-top:20px;color:#FFD39B'>新员工已参训人数</span>
+					<span style='color:#FFD39B;font-size:40px;'>{{trainCount}}</span>
 				</div>
 				<div class='left_content4'>
 					<div id="mainworld" style="width:400px;height:200px"></div>
@@ -42,7 +42,7 @@
 			<div class='center_content'>
 				<div class='center_map'>
 					<div style='margin-top:5%'>
-					<div id="main" style="width:600px;height:400px"></div>
+					<div id="main" style="width:680px;height:400px"></div>
 					</div>
 				</div>
 
@@ -74,7 +74,7 @@
 			<div class='right_content'>
 				<div class='right_1'>
 					<div style='margin-top:5%'>
-					<div id="mainpie" style="width:400px;height:220px"></div>
+					<div id="mainpie" style="width:450px;height:220px"></div>
 					</div>
 				</div>
 				<div class='right_2'>
@@ -135,12 +135,20 @@
 				{className:'课程详情'},
 				{className:'课程详情'},
 				{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
 			],
 			scrollList2:[
 			{className:'课程详情'},
 			{className:'课程详情'},
 			{className:'课程详情'},
 			{className:'课程详情'},
+			{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
+				{className:'课程详情'},
 		],
 			title1:'当前省份',
 			title2:'当前省份',
@@ -260,7 +268,7 @@
 								position: 'top',
 							}
 						},
-						color:'47D8BE',
+						color:'#47D8BE',
 						lineStyle: {
 							normal: {
 								width: 5,
@@ -269,7 +277,7 @@
 			
 									colorStops: [{
 											offset: 0,
-											color: '#AAF487' // 0% 处的颜色
+											color: '#47D8BE' // 0% 处的颜色
 										},
 										{
 											offset: 0.4,
@@ -298,20 +306,27 @@
 								position: 'top'
 							}
 						},
-						color:'#ff696a',
+						color:'#ff9191',
 						lineStyle: {
 							normal: {
 								width: 5,
-								color: function(params){
-									console.log(params.name)
-									return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-										offset: 0,
-										color: '#ff9191'
-									}, {
-										offset: 1,
-										color: '#ff696a'
-									}])
-							},
+								color: {
+									type: 'linear',
+			
+									colorStops: [{
+											offset: 0,
+											color: '#ff9191' // 0% 处的颜色
+										},
+										{
+											offset: 0.4,
+											color: '#ff9191' // 100% 处的颜色
+										}, {
+											offset: 1,
+											color: '#ff9191' // 100% 处的颜色
+										}
+									],
+									globalCoord: false // 缺省为 false
+								},
 								shadowColor: 'rgba(71,216,190, 0.5)',
 								shadowBlur: 10,
 								shadowOffsetY: 7
@@ -345,23 +360,17 @@
 							name:'访问来源',
 							type:'pie',
 							radius: ['50%', '70%'],
-							center: ["50%", "55%"], 
-							avoidLabelOverlap: false,
+							center: ["46%", "55%"], 
+					
 							label: {
-							
-								normal: {
-									
+								show: false,
+            					position: 'outside',
+								
+								normal: {									
 									show: true,
-									position: 'center',
-									position: 'outside',
+									formatter: '{b}:{d}%',
 								},
-								emphasis: {
-									show: true,
-									textStyle: {
-										fontSize: '30',
-										fontWeight: 'bold'
-									}
-								}
+
 							},
 							labelLine: {
 								normal: {
@@ -676,7 +685,7 @@
 						type: 'map',
 						mapType: 'world',
 						
-						zoom:2,
+						zoom:1,
 						itemStyle: {
 							areaColor: 'rgba(0,0,0,0)',
 							borderColor: '#72a8ff',
@@ -850,7 +859,9 @@
 					geo: {
 						show: true,
 						map: mapName,
-						zoom: 1.2,  
+						layoutCenter:['55%','50%'],
+						layoutSize:650,
+						zoom: 0.8,  
 						label: {
 							normal: {
 								show: false
@@ -895,7 +906,9 @@
 					{
 						name: 'iphone4',
 						type: 'map',
-						zoom: 1.2,   
+						zoom: 0.8,   
+						layoutCenter:['55%','50%'],
+						layoutSize:650,
 						mapType: 'china',
 						roam: false,
 						itemStyle: {
@@ -1175,7 +1188,7 @@
 
 	.left_content {
 		width: 20%;
-		font-size:30px;
+		font-size:18px;
 		font-weight: bold;
 		height:100%
 
@@ -1187,20 +1200,21 @@
 	}
 
 	.center_content2 {
-		height: 25%;
+		height: 35%;
 		
 	}
 
 	.scroll_1{
-		width: 30%;
+		width: 20%;
 		float: left;
-		margin-left: 15%;
+		margin-left: 30%;
 
 	}
 
 	.scroll_2 {
-		width: 30%;
+		width: 20%;
 		float: left;
+		margin-left:15%
 	}
 
 	.right_content {
@@ -1236,7 +1250,7 @@
 	}
 
 	.center_map {
-		height: 70%;
+		height: 60%;
 
 	}
 
@@ -1293,7 +1307,7 @@
 		width: 100px;
 		height: 80px;
 		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,red,#000000);
+		background: radial-gradient(circle at 70px 70px,red,#660033);
 		position: absolute;
 		left: 160px;
 		text-align:center;
@@ -1305,7 +1319,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#AE33CC,#000000);
+		background: radial-gradient(circle at 70px 70px,#00ff00,#ccc000);
 		position: absolute;
 		left: 300px;
 		font-size:12px;
@@ -1318,7 +1332,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#00FFFF,#000000);
+		background: radial-gradient(circle at 70px 70px,#FFFF00,#EE82EE);
 		position: absolute;
 		left: 100px;
 		font-size:12px;
@@ -1331,7 +1345,7 @@
 		width: 60px;
 		height: 50px;
 		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,orange,#000000);
+		background: radial-gradient(circle at 70px 70px,#33ffff,#660066);
 		position: absolute;
 		left: 260px;
 		font-size:12px;
@@ -1363,8 +1377,7 @@
 
         .box{
             margin:20px auto;
-            width:170px;
-            height:84px;
+            height:150px;
             line-height:20px;
 			overflow:hidden;
 			color:cornsilk
