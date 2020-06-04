@@ -20,103 +20,103 @@
 <body>
 	<div id='app'>
 		<div class='content'>
-			<div class='left_content'>
-				<div class='left_content1'>
-					<span style='display:block;margin-top:20px;color:#98FB98'>公司总人数</span>
-					<span style='color:#98FB98;font-size:40px;'>{{companyCount}}</span>
-					
-				</div>
-				<div class='left_content2'>
-					<span style='display:block;margin-top:20px;color:aqua'>参训人数覆盖率</span>
-					<span style='color:aqua;font-size:40px;'>{{newJoinCount}}%</span>
-				</div>
-				<div class='left_content3'>
-					<span style='display:block;margin-top:20px;color:#FFD39B'>新员工已参训人数</span>
-					<span style='color:#FFD39B;font-size:40px;'>{{trainCount}}</span>
-				</div>
-				<div class='left_content4'>
-					<div id="mainworld" style="width:400px;height:200px"></div>
-				</div>
-			</div>
-
-			<div class='center_content'>
-				<div class='center_map'>
-					<div style='margin-top:5%'>
-					<div id="main" style="width:680px;height:400px"></div>
-					</div>
-				</div>
-
-				<div class='center_content2' v-if='isshow'>
-					<div class='scroll_1'>
-						<div class='scroll_title'>{{title1}}</div>
-						<div class="box">
-							<div id="transverseRoll">
-								<div class="contentscroll" v-for='(item,index) in scrollList1' :key='index' >
-									<span>{{item.className}}</span>
+			<div class='content_top'>
+					<div class='content_top_left'>
+							<div class='left_content1'>
+									<span style='display:block;margin-top:20px;color:#98FB98'>公司总人数</span>
+									<span style='color:#98FB98;font-size:40px;'>{{companyCount}}</span>
+									
 								</div>
-						</div>
-						</div>
-					</div>
-
-					<div class='scroll_2'>
-						<div class='scroll_title'>{{title2}}</div>
-						<div class="box">
-							<div id="transverseRoll2">
-								<div class="contentscroll" v-for='(item,index) in scrollList2' :key='index'>
-									<span>{{item.className}}</span>
+								<div class='left_content2'>
+									<span style='display:block;margin-top:20px;color:aqua'>参训人数覆盖率</span>
+									<span style='color:aqua;font-size:40px;'>{{newJoinCount}}%</span>
 								</div>
-						</div>
-						</div>
+								<div class='left_content3'>
+									<span style='display:block;margin-top:20px;color:#FFD39B'>新员工已参训人数</span>
+									<span style='color:#FFD39B;font-size:40px;'>{{trainCount}}</span>
+								</div>
 					</div>
-				</div>
+					<div class='content_top_center'>
+							<div id="main" style="width:100%;height:100%"></div>
+					</div>
+					<div class='content_top_right'>
+						<div class='content_top_right_1'>
+								<div id="mainpie" style="width:120%;height:100%;top:5%"></div>
+						</div>
+						<div class='content_top_right_2'>
+								<div id="mainbar" style="width:120%;height:100%"></div>
+						</div>						
+					</div>
 			</div>
-
-			<div class='right_content'>
-				<div class='right_1'>
-					<div style='margin-top:5%'>
-					<div id="mainpie" style="width:450px;height:220px"></div>
+			<div class='content_bottom'>
+					<div class='content_bottom_left'>
+							<div id="mainworld" style="width:100%;height:100%"></div>
 					</div>
-				</div>
-				<div class='right_2'>
-					<div id="mainbar" style="width:400px;height:240px"></div>
-				</div>
-				<div class='right_3'>
-					<p class='right_3_title'>课程种类分布情况</p>
-					<div class='right_3_center'>
-
-						<div class='one'>
-							<span>{{num1}}</span></br>
-							<span>领导力</span>
-
-						</div>
-
-						<div class='two'>
-							<span>{{num2}}</span></br>
-							<span>专业技能</span>
-						</div>
-
-
-						<div class='three'>
-							<span>{{num3}}</span></br>
-							<span>综合定制</span>
-						</div>
-
+					<div class='content_bottom_center'>
+							<div class='center_content2' v-if='isshow'>
+									<div class='scroll_1'>
+										<div class='scroll_title'>{{title1}}</div>
+										<div class="box">
+											<div id="transverseRoll">
+												<div class="contentscroll" v-for='(item,index) in scrollList1' :key='index' >
+													<span>{{item.className}}</span>
+												</div>
+										</div>
+										</div>
+									</div>
+				
+									<div class='scroll_2'>
+										<div class='scroll_title'>{{title2}}</div>
+										<div class="box">
+											<div id="transverseRoll2">
+												<div class="contentscroll" v-for='(item,index) in scrollList2' :key='index'>
+													<span>{{item.className}}</span>
+												</div>
+										</div>
+										</div>
+									</div>
+								</div>
 					</div>
-					<div class='right_3_bottom'>
-
-						<div class='four'>
-							<span>{{num4}}</span></br>
-							<span>通用技能</span>
-						</div>
-
-
-						<div class='five'>
-							<span>{{num5}}</span></br>
-							<span>新员工</span>
-						</div>
-
+					<div class='content_bottom_right'>
+		
+									<p class='right_3_title'>课程种类分布情况</p>
+									<div class='right_3_box'>
+											<div class='right_3_center'>
+						
+												<div class='one'>
+													<span style='font-size:20px'>{{num1}}</span></br>
+													<span>领导力</span>
+						
+												</div>
+						
+												<div class='two'>
+													<span style='font-size:20px'>{{num2}}</span></br>
+													<span>专业技能</span>
+												</div>
+						
+						
+												<div class='three'>
+													<span style='font-size:20px'>{{num3}}</span></br>
+													<span>综合定制</span>
+												</div>
+						
+											</div>
+											<div class='right_3_bottom'>
+						
+												<div class='four'>
+													<span style='font-size:20px'>{{num4}}</span></br>
+													<span>通用技能</span>
+												</div>
+						
+						
+												<div class='five'>
+													<span style='font-size:20px'>{{num5}}</span></br>
+													<span>新员工</span>
+												</div>
+						
+											</div>
+									</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -131,7 +131,7 @@
 			companyCount:'',
 			newJoinCount:'',
 			scrollList1:[
-				{className:'课程详情'},
+				{className:'工业标准服务器和软硬件基础初级培训'},
 				{className:'课程详情'},
 				{className:'课程详情'},
 				{className:'课程详情'},
@@ -141,7 +141,7 @@
 				{className:'课程详情'},
 			],
 			scrollList2:[
-			{className:'课程详情'},
+			{className:'工业标准服务器和软硬件基础初级培训'},
 			{className:'课程详情'},
 			{className:'课程详情'},
 			{className:'课程详情'},
@@ -184,9 +184,9 @@
 							},
 					},
 					grid: {
-						left: '20%',
+						left: '15%',
 						top:'20%',
-						right: '15%',
+						right: '10%',
 						bottom: '20%'
 					},
 					legend: {
@@ -299,6 +299,7 @@
 						name: '参训人数',
 						type: 'line',
 						yAxisIndex: 1,
+						smooth:true,
 						barWidth: 10,
 						label: {
 							normal: {
@@ -360,7 +361,7 @@
 							name:'访问来源',
 							type:'pie',
 							radius: ['50%', '70%'],
-							center: ["46%", "55%"], 
+							center: ["50%", "50%"], 
 					
 							label: {
 								show: false,
@@ -685,7 +686,7 @@
 						type: 'map',
 						mapType: 'world',
 						
-						zoom:1,
+						zoom:1.2,
 						itemStyle: {
 							areaColor: 'rgba(0,0,0,0)',
 							borderColor: '#72a8ff',
@@ -859,7 +860,7 @@
 					geo: {
 						show: true,
 						map: mapName,
-						layoutCenter:['55%','50%'],
+						layoutCenter:['50%','50%'],
 						layoutSize:650,
 						zoom: 0.8,  
 						label: {
@@ -907,7 +908,7 @@
 						name: 'iphone4',
 						type: 'map',
 						zoom: 0.8,   
-						layoutCenter:['55%','50%'],
+						layoutCenter:['50%','50%'],
 						layoutSize:650,
 						mapType: 'china',
 						roam: false,
@@ -1167,7 +1168,6 @@
 			height: 100%;
 			background-image:url('./img/bg.png');
 			background-repeat: no-repeat;
-			background-size:100%
 		}
 	
 		* {
@@ -1177,237 +1177,298 @@
 	
 		#app {
 			width: 100%;
-			height: 100%
+			height: 100%;
+			background-image:url('./img/bg.png');
+			background-repeat: no-repeat;
+			overflow: hidden;
 		}
 		.content {
 			width:100%;
+			height:96%;
+			margin-top:4%
+		}
+		.content_top{
+			height:60%;
+			width:100%;
+
+		}
+		.content_bottom{
+			height:40%;
+			width:100%;
+		}
+		.content_top_left{
+			width:20%;
 			height:100%;
-			display:flex;
-			color:#fff
+			margin-left:2.5%;
+			float:left
+		}
+		.content_top_center{
+			width:50%;
+			height:100%;
+			margin-left:2.5%;
+			float:left
+		}
+		.content_top_right{
+			width:20%;
+			height:100%;
+			margin-left:2.5%;
+			float:left;
+			margin-right:2.5%
+		}
+		.content_bottom_left{
+			width:30%;
+			height:100%;
+			margin-left:2.5%;
+			float:left
+		}
+		.content_bottom_center{
+			width:30%;
+			height:100%;
+			margin-left:2.5%;
+			float:left
+		}
+		.content_bottom_right{
+			width:30%;
+			height:100%;
+			margin-left:2.5%;
+			float:left;
+			margin-right:2.5%;
+			position: relative;
+		}
+		.content_top_right_1{
+			height:50%;
+		}
+		.content_top_right_2{
+			height:50%;
+		}
+		.center_content2{
+			height:100%
 		}
 
-	.left_content {
-		width: 20%;
-		font-size:18px;
-		font-weight: bold;
-		height:100%
 
-	}
-
-	.center_content {
-		width: 50%;
-		height:100%
-	}
-
-	.center_content2 {
-		height: 35%;
 		
-	}
-
-	.scroll_1{
-		width: 20%;
-		float: left;
-		margin-left: 30%;
-
-	}
-
-	.scroll_2 {
-		width: 20%;
-		float: left;
-		margin-left:15%
-	}
-
-	.right_content {
-		width: 30%;
-		height:100%
-	}
-
-	.left_content1 {
-		height: 20%;
-		text-align: center;
-		margin-top: 5%;
-		
-	}
-
-	.left_content2 {
-		height: 20%;
-		margin-top: 5%;
-		text-align: center;
-		
-	}
-
-	.left_content3 {
-		height: 20%;
-		margin-top: 5%;
-		text-align: center;
-		
-	}
-
-	.left_content4 {
-		height: 20%;
-		margin-top: 5%;
-		
-	}
-
-	.center_map {
-		height: 60%;
-
-	}
-
-	.right_1 {
-		height: 30%;
-	}
-
-	.right_2 {
-		height: 30%;
-		margin-top:2%
-	}
-
-	.right_3 {
-		height: 33%;
-		
-		overflow: hidden;
-	}
-
-	.right_3_title {
-		text-align: center;
-		font-size: 18px;
-		font-weight: bold;
-		margin-top: 10%;
-	}
-
-	.right_3_center {
-		height: 60px;
-
-		margin-top: 10%;
-		position: relative;
-	}
-
-	.right_3_bottom {
-		height: 60px;
-
-		margin-top: 10px;
-		position: relative;
-	}
-
-	.one {
-		width: 60px;
-		height: 50px;
-		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#18D764,#000000);
-		position: absolute;
-		left: 60px;
-		font-size:12px;
-		text-align:center;
-		padding-top:10px;
-		color:#fff
-	}
-
-	.two {
-		width: 100px;
-		height: 80px;
-		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,red,#660033);
-		position: absolute;
-		left: 160px;
-		text-align:center;
-		padding-top:20px;
-		color:#fff
-	}
-
-	.three {
-		width: 60px;
-		height: 50px;
-		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#00ff00,#ccc000);
-		position: absolute;
-		left: 300px;
-		font-size:12px;
-		padding-top:10px;
-		text-align:center;
-		color:#fff
-	}
-
-	.four {
-		width: 60px;
-		height: 50px;
-		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#FFFF00,#EE82EE);
-		position: absolute;
-		left: 100px;
-		font-size:12px;
-		padding-top:10px;
-		text-align:center;
-		color:#fff
-	}
-
-	.five {
-		width: 60px;
-		height: 50px;
-		border-radius: 50%;
-		background: radial-gradient(circle at 70px 70px,#33ffff,#660066);
-		position: absolute;
-		left: 260px;
-		font-size:12px;
-		padding-top:10px;
-		text-align:center;
-		color:#fff
-	}
-
-	.el-carousel__item h3 {
-		color: #475669;
-		font-size: 14px;
-		opacity: 0.75;
-		line-height: 200px;
-		margin: 0;
-	}
-
-	.el-carousel__item:nth-child(2n) {
-		background-color: #99a9bf;
-	}
-
-	.el-carousel__item:nth-child(2n+1) {
-		background-color: #d3dce6;
-	}
-
-	.right_3_center span:nth-child(1){
-		font-weight:bold
-	}
-
-
-        .box{
-            margin:20px auto;
-            height:150px;
-            line-height:20px;
-			overflow:hidden;
-			color:cornsilk
-		}
-		.scroll_title{
-			font-size:16px;
-			color:#fff;
-			text-align: center;
-			margin-top:20px;
-			color:red
-		}
-        .box .contentscroll{
-            list-style-type:none;
-            margin:0;padding:0;
-			width:100%;
-			text-align:center
-        }
-        /*系统支持ie8就选line-height:16px;，但不支持opera 否则选line-height:20px;*/
-        .box .contentscroll a{
-            font-size:12px; 
-            line-height:16px;
-        }
-
-
-		.box .contentscroll2{
-            list-style-type:none;
-            margin:0;padding:0;
-			width:100%;
-			text-align:center
-        }
 </style>
 
+
+<style>
+		.left_content {
+            width: 20%;
+            font-size:18px;
+            font-weight: bold;
+            height:100%
+    
+        }
+    
+        .center_content {
+            width: 50%;
+            height:100%
+        }
+    
+        .scroll_1{
+            width: 50%;
+			float: left;
+			height:100%
+    
+        }
+    
+        .scroll_2 {
+            width: 50%;
+			float: left;
+			height:100%
+        }
+    
+        .right_content {
+            width: 30%;
+            height:100%
+        }
+    
+        .left_content1 {
+            height: 30%;
+            text-align: center;
+            margin-top: 5%;
+            
+        }
+    
+        .left_content2 {
+            height: 30%;
+            margin-top: 5%;
+            text-align: center;
+            
+        }
+    
+        .left_content3 {
+            height: 30%;
+            margin-top: 5%;
+            text-align: center;
+            
+        }
+    
+        .center_map {
+            height: 60%;
+    
+        }
+    
+        .right_1 {
+            height: 30%;
+        }
+    
+        .right_2 {
+            height: 30%;
+            margin-top:2%
+        }
+    
+        .right_3 {
+            height: 33%;
+            
+            overflow: hidden;
+        }
+    
+        .right_3_title {
+            text-align: center;
+            font-size: 18px;
+			font-weight: bold;
+			margin-top:20px;
+			height:10%;
+			color:#fff
+ 
+        }
+    
+        .right_3_center {
+			height: 50%;
+			position: relative;
+        }
+    
+        .right_3_bottom {
+			height: 50%;
+			/* margin-top: 10px; */
+			position: relative;
+			width: 100%;
+        }
+    
+        .one {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70px 70px,#479e6f,#39815a);
+            position: absolute;
+            left: 60px;
+            font-size:12px;
+            text-align:center;
+            padding-top:10px;
+            color:#fff
+        }
+    
+        .two {
+            width: 100px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70px 70px,#e96855,#88392e);
+            position: absolute;
+            left: 160px;
+            text-align:center;
+            padding-top:20px;
+            color:#fff
+        }
+    
+        .three {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70px 70px,#f4af66,#ee8038);
+            position: absolute;
+            left: 300px;
+            font-size:12px;
+            padding-top:10px;
+            text-align:center;
+            color:#fff
+        }
+    
+        .four {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70px 70px,#4a97f6,#2972f6);
+            position: absolute;
+            left: 100px;
+            font-size:12px;
+            padding-top:10px;
+            text-align:center;
+            color:#fff
+        }
+    
+        .five {
+            width: 60px;
+            height: 50px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 70px 70px,#9a86f3,#5b42f2);
+            position: absolute;
+            left: 260px;
+            font-size:12px;
+            padding-top:10px;
+            text-align:center;
+            color:#fff
+        }
+    
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 200px;
+            margin: 0;
+        }
+    
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+    
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+    
+        .right_3_center span:nth-child(1){
+            font-weight:bold
+        }
+    
+    
+            .box{
+                margin:20px auto;
+                height:150px;
+                line-height:20px;
+                overflow:hidden;
+                color:cornsilk
+            }
+            .scroll_title{
+                font-size:16px;
+                color:#fff;
+                text-align: center;
+                margin-top:20px;
+            }
+            .box .contentscroll{
+                list-style-type:none;
+                margin:0;padding:0;
+                width:100%;
+                text-align:center
+            }
+            /*系统支持ie8就选line-height:16px;，但不支持opera 否则选line-height:20px;*/
+            .box .contentscroll a{
+                font-size:12px; 
+                line-height:16px;
+            }
+    
+    
+            .box .contentscroll2{
+                list-style-type:none;
+                margin:0;padding:0;
+                width:100%;
+                text-align:center
+			}
+			.right_3_box{
+				position: absolute;
+				top: 60%;
+				transform: translateY(-50%);
+				overflow: hidden;
+				width: 100%;
+				height: 70%;
+			}
+</style>
 </html>
