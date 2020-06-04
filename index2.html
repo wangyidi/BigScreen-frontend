@@ -37,14 +37,14 @@
 								</div>
 					</div>
 					<div class='content_top_center'>
-							<div id="main" style="width:100%;height:100%"></div>
+							<div id="main" style="width:100%;height:120%;"></div>
 					</div>
 					<div class='content_top_right'>
 						<div class='content_top_right_1'>
-								<div id="mainpie" style="width:120%;height:100%;top:5%"></div>
+								<div id="mainpie" style="width:100%;height:100%;top:5%"></div>
 						</div>
 						<div class='content_top_right_2'>
-								<div id="mainbar" style="width:120%;height:100%"></div>
+								<div id="mainbar" style="width:100%;height:100%"></div>
 						</div>						
 					</div>
 			</div>
@@ -82,38 +82,39 @@
 									<p class='right_3_title'>课程种类分布情况</p>
 									<div class='right_3_box'>
 											<div class='right_3_center'>
-						
+											<div class='outcicle'>
 												<div class='one'>
 													<span style='font-size:20px'>{{num1}}</span></br>
 													<span>领导力</span>
 						
 												</div>
-						
+											</div>
+											<div class='outcicle'>
 												<div class='two'>
 													<span style='font-size:20px'>{{num2}}</span></br>
 													<span>专业技能</span>
 												</div>
-						
-						
+											</div>
+											<div class='outcicle'>
 												<div class='three'>
 													<span style='font-size:20px'>{{num3}}</span></br>
 													<span>综合定制</span>
 												</div>
-						
+											</div>
 											</div>
 											<div class='right_3_bottom'>
-						
-												<div class='four'>
-													<span style='font-size:20px'>{{num4}}</span></br>
-													<span>通用技能</span>
+												<div class='outcicle'>
+													<div class='four'>
+														<span style='font-size:20px'>{{num4}}</span></br>
+														<span>通用技能</span>
+													</div>
 												</div>
-						
-						
-												<div class='five'>
-													<span style='font-size:20px'>{{num5}}</span></br>
-													<span>新员工</span>
+												<div class='outcicle'>
+													<div class='five'>
+														<span style='font-size:20px'>{{num5}}</span></br>
+														<span>新员工</span>
+													</div>
 												</div>
-						
 											</div>
 									</div>
 					</div>
@@ -360,7 +361,7 @@
 						{
 							name:'访问来源',
 							type:'pie',
-							radius: ['50%', '70%'],
+							radius: ['40%', '30%'],
 							center: ["50%", "50%"], 
 					
 							label: {
@@ -369,7 +370,7 @@
 								
 								normal: {									
 									show: true,
-									formatter: '{b}:{d}%',
+									formatter: '{b}\n({d}%)',
 								},
 
 							},
@@ -862,7 +863,7 @@
 						map: mapName,
 						layoutCenter:['50%','50%'],
 						layoutSize:650,
-						zoom: 0.8,  
+						zoom: 1,  
 						label: {
 							normal: {
 								show: false
@@ -907,7 +908,7 @@
 					{
 						name: 'iphone4',
 						type: 'map',
-						zoom: 0.8,   
+						zoom: 1,   
 						layoutCenter:['50%','50%'],
 						layoutSize:650,
 						mapType: 'china',
@@ -1228,9 +1229,9 @@
 			float:left
 		}
 		.content_bottom_right{
-			width:30%;
+			width:20%;
 			height:100%;
-			margin-left:2.5%;
+			margin-left:12.5%;
 			float:left;
 			margin-right:2.5%;
 			position: relative;
@@ -1335,76 +1336,71 @@
     
         .right_3_center {
 			height: 50%;
-			position: relative;
+			width:100%;
+			display:flex
         }
     
         .right_3_bottom {
 			height: 50%;
 			/* margin-top: 10px; */
-			position: relative;
 			width: 100%;
+			display:flex
         }
-    
+		.outcicle{
+			flex:1
+		}
         .one {
-            width: 60px;
+            width: 50px;
             height: 50px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#479e6f,#39815a);
-            position: absolute;
-            left: 60px;
+			margin:auto;
             font-size:12px;
             text-align:center;
-            padding-top:10px;
             color:#fff
         }
     
         .two {
-            width: 100px;
+            width: 80px;
             height: 80px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#e96855,#88392e);
-            position: absolute;
-            left: 160px;
+			margin:auto;
             text-align:center;
-            padding-top:20px;
             color:#fff
         }
     
         .three {
-            width: 60px;
+            width: 50px;
             height: 50px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#f4af66,#ee8038);
-            position: absolute;
-            left: 300px;
+			margin:auto;
             font-size:12px;
-            padding-top:10px;
             text-align:center;
             color:#fff
         }
     
         .four {
-            width: 60px;
+            width: 50px;
             height: 50px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#4a97f6,#2972f6);
-            position: absolute;
-            left: 100px;
             font-size:12px;
-            padding-top:10px;
+
             text-align:center;
-            color:#fff
+			color:#fff;
+			margin:auto;
         }
     
         .five {
-            width: 60px;
+            width: 50px;
             height: 50px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#9a86f3,#5b42f2);
-            position: absolute;
-            left: 260px;
-            font-size:12px;
-            padding-top:10px;
+			font-size:12px;
+			margin:auto;
+
             text-align:center;
             color:#fff
         }
