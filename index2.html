@@ -37,7 +37,7 @@
 								</div>
 					</div>
 					<div class='content_top_center'>
-							<div id="main" style="width:100%;height:120%;"></div>
+							<div id="main" style="width:100%;height:140%;"></div>
 					</div>
 					<div class='content_top_right'>
 						<div class='content_top_right_1'>
@@ -84,34 +84,34 @@
 											<div class='right_3_center'>
 											<div class='outcicle'>
 												<div class='one'>
-													<span style='font-size:20px'>{{num1}}</span></br>
+													<span style='font-size:22px;margin-top:10px;display:block'>{{num1}}</span></br>
 													<span>领导力</span>
 						
 												</div>
 											</div>
 											<div class='outcicle'>
 												<div class='two'>
-													<span style='font-size:20px'>{{num2}}</span></br>
-													<span>专业技能</span>
+													<span style='font-size:22px;margin-top:10px;display:block'>{{num2}}</span></br>
+													<span >专业技能</span>
 												</div>
 											</div>
 											<div class='outcicle'>
 												<div class='three'>
-													<span style='font-size:20px'>{{num3}}</span></br>
-													<span>综合定制</span>
+													<span style='font-size:22px;margin-top:10px;display:block'>{{num3}}</span></br>
+													<span >综合定制</span>
 												</div>
 											</div>
 											</div>
 											<div class='right_3_bottom'>
 												<div class='outcicle'>
 													<div class='four'>
-														<span style='font-size:20px'>{{num4}}</span></br>
+														<span style='font-size:22px;margin-top:10px;display:block'>{{num4}}</span></br>
 														<span>通用技能</span>
 													</div>
 												</div>
 												<div class='outcicle'>
 													<div class='five'>
-														<span style='font-size:20px'>{{num5}}</span></br>
+														<span style='font-size:22px;margin-top:10px;display:block'>{{num5}}</span></br>
 														<span>新员工</span>
 													</div>
 												</div>
@@ -352,7 +352,7 @@
 							
 							},
 					},
-					color: ['#FEE449','#00FFFF','#00FFA8','#9F17FF','#FFE400','#F76F01','#01A4F7','#FE2C8A'], 
+					color: ['#b43e3a','#c98770','#77a8b1','#F76F01','#FFE400','#F76F01','#01A4F7','#FE2C8A'], 
 					tooltip: {
 						trigger: 'item',
 						formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -862,7 +862,7 @@
 					geo: {
 						show: true,
 						map: mapName,
-						layoutCenter:['50%','50%'],
+						layoutCenter:['50%','40%'],
 						layoutSize:650,
 						zoom: 1,  
 						label: {
@@ -910,7 +910,7 @@
 						name: 'iphone4',
 						type: 'map',
 						zoom: 1,   
-						layoutCenter:['50%','50%'],
+						layoutCenter:['50%','40%'],
 						layoutSize:650,
 						mapType: 'china',
 						roam: false,
@@ -1186,8 +1186,7 @@
 		}
 		.content {
 			width:100%;
-			height:96%;
-			margin-top:4%
+			height:100%;
 		}
 		.content_top{
 			height:60%;
@@ -1329,7 +1328,7 @@
             text-align: center;
             font-size: 18px;
 			font-weight: bold;
-			margin-top:20px;
+			margin-top:50px;
 			height:10%;
 			color:#fff
  
@@ -1351,57 +1350,60 @@
 			flex:1
 		}
         .one {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height:80px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#479e6f,#39815a);
 			margin:auto;
             font-size:12px;
             text-align:center;
-            color:#fff
+			color:#fff;
+			overflow: hidden
         }
     
         .two {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#e96855,#88392e);
 			margin:auto;
             text-align:center;
-            color:#fff
+			color:#fff;
+			overflow: hidden
         }
     
         .three {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#f4af66,#ee8038);
 			margin:auto;
             font-size:12px;
             text-align:center;
-            color:#fff
+			color:#fff;
+			overflow: hidden
         }
     
         .four {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#4a97f6,#2972f6);
             font-size:12px;
-
+			overflow: hidden;
             text-align:center;
 			color:#fff;
 			margin:auto;
         }
     
         .five {
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             background: radial-gradient(circle at 70px 70px,#9a86f3,#5b42f2);
 			font-size:12px;
 			margin:auto;
-
+			overflow: hidden;
             text-align:center;
             color:#fff
         }
@@ -1439,7 +1441,7 @@
                 font-size:16px;
                 color:red;
                 text-align: center;
-                margin-top:20px;
+                margin-top:50px;
             }
             .box .contentscroll{
                 list-style-type:none;
