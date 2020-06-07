@@ -50,7 +50,8 @@
 			</div>
 			<div class='content_bottom'>
 					<div class='content_bottom_left'>
-							<div id="mainworld" style="width:100%;height:100%"></div>
+							<!-- <div id="mainworld" style="width:100%;height:100%"></div> -->
+							<img src="./img/world.png" alt="">
 					</div>
 					<div class='content_bottom_center'>
 							<div class='center_content2' v-if='isshow'>
@@ -1151,7 +1152,7 @@
 								that.num5 = data.classList[i].COUNT
 						}
 					}
-					that.drowMapworld(data.countryList)
+					//that.drowMapworld(data.countryList)
 					that.drowmap(data.calssNameList)
 					that.drowpie(data.sysList)
 					that.drowbar(data.yearList,data.trainScale,data.trainCountScale)
@@ -1221,6 +1222,13 @@
 			height:100%;
 			margin-left:2.5%;
 			float:left
+		}
+		.content_bottom_left img{
+			width:80%;
+			height:80%;
+			margin:auto;
+			display:block;
+			margin-top:50px;
 		}
 		.content_bottom_center{
 			width:30%;
