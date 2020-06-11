@@ -24,17 +24,17 @@
 			<div class='content_top'>
 					<div class='content_top_left'>
 							<div class='left_content1'>
-									<span style='display:block;margin-top:20px;color:#98FB98'>公司总人数</span>
-									<span style='color:#98FB98;font-size:40px;'>{{companyCount}}</span>
+									<span style='display:block;margin-top:20px;color:#ECA913'>公司总人数</span>
+									<span style='color:#ECA913;font-size:48px;'>{{companyCount}}</span>
 									
 								</div>
 								<div class='left_content2'>
-									<span style='display:block;margin-top:20px;color:aqua'>参训人数覆盖率</span>
-									<span style='color:aqua;font-size:40px;'>{{newJoinCount}}%</span>
+									<span style='display:block;margin-top:20px;color:#5bbf95'>参训人数覆盖率</span>
+									<span style='color:#5bbf95;font-size:48px;'>{{newJoinCount}}%</span>
 								</div>
 								<div class='left_content3'>
-									<span style='display:block;margin-top:20px;color:#FFD39B'>新员工已参训人数</span>
-									<span style='color:#FFD39B;font-size:40px;'>{{trainCount}}</span>
+									<span style='display:block;margin-top:20px;color:#DA342B'>新员工已参训人数</span>
+									<span style='color:#DA342B;font-size:48px;'>{{trainCount}}</span>
 								</div>
 					</div>
 					<div class='content_top_center'>
@@ -854,7 +854,7 @@
 						calculable: true,
 						seriesIndex: [1],
 						inRange: {
-							color: ['#04387b', '#467bc0'] // 蓝绿
+							color: ['#04387b', '#2F6BE5'] // 蓝绿
 						}
 					},
 
@@ -878,11 +878,11 @@
 						roam: false,
 						itemStyle: {
 							normal: {
-								areaColor: '#023677',
+								areaColor: '#2F6BE5',
 								borderColor: '#1180c7',
 							},
 							emphasis: {
-								areaColor: '#4499d0',
+								areaColor: '#2F6BE5',
 							}
 						}
 					},
@@ -921,7 +921,7 @@
 								label: {
 									show: false
 								},
-								borderColor: 'rgba(147, 235, 248, 1)',
+								borderColor: '#2F6BE5',
 								borderWidth: 1,
 								areaColor: {
 									type: 'radial',
@@ -930,14 +930,14 @@
 									r: 0.8,
 									colorStops: [{
 										offset: 0,
-										color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
+										color: '#2F6BE5' // 0% 处的颜色
 									}, {
 										offset: 1,
-										color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
+										color: '#2F6BE5' // 100% 处的颜色
 									}],
 									globalCoord: false // 缺省为 false
 								},
-								shadowColor: 'rgba(128, 217, 248, 1)',
+								shadowColor: '#2F6BE5',
 								// shadowColor: 'rgba(255, 255, 255, 1)',
 								shadowOffsetX: -2,
 								shadowOffsetY: 2,
@@ -961,10 +961,7 @@
 						name: 'Top 5',
 						type: 'effectScatter',
 						coordinateSystem: 'geo',
-						data: [],
-						symbolSize: function (val) {
-							return val[2] / 10;
-						},
+						data: convertData(datajson),
 						showEffectOn: 'render',
 						rippleEffect: {
 							brushType: 'stroke'
@@ -993,6 +990,12 @@
 				var count = 0;
 				var timeTicket = null;
 				var dataLength = option.series[1].data.length; //循环轮播几个图
+
+
+
+
+
+
 				timeTicket && clearInterval(timeTicket);
 				timeTicket = setInterval(function () {
 					var index1 = (count) % dataLength+((count) % dataLength*1)
@@ -1021,7 +1024,11 @@
 						},1)
 						
 					},1)
+					
 					count++;
+					console.log(datajson.length)
+					console.log(index1)
+					console.log(index2)
 					if(index2 == datajson.length-1 ||index1 == datajson.length-1){
 						count = 0
 					}else{

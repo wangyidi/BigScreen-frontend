@@ -28,11 +28,11 @@
                     <span style='font-size:16px;margin-top:15px;display:block;'>满意度</span>
                 </div>
                 <div class='circle2'>
-                        <span style='display:block;font-weight:bold;font-size:32px'>{{workingHours}}</span>
+                        <span style='display:block;font-weight:bold;font-size:32px;text-align:center'>{{workingHours}}</span>
                         <span style='font-size:16px;margin-top:10px;display:block'>时长</span>
                 </div>
                 <div class='circle3'>
-                        <span style='display:block;font-weight:bold;font-size:32px'>{{peopleCount}}</span>
+                        <span style='display:block;font-weight:bold;font-size:32px;margin-top: 5px'>{{peopleCount}}</span>
                         <span style='font-size:16px;margin-top:20px;display:block'>人数</span>
                 </div>
                 <div class='circle4'>
@@ -46,16 +46,16 @@
              </div>
              <div class='content-bottom'>
                 <div class='echart_out'>
-                        <div id="main1" style="width:300px;height:340px"></div>
+                        <div id="main1" style="width:100%;height:340px"></div>
                 </div>
-                <div class='echart_out' style='margin-left:2%'>
-                        <div id="main2" style="width:300px;height:340px"></div>
+                <div class='echart_out' >
+                        <div id="main2" style="width:100%;height:340px"></div>
                 </div>
-                <div class='echart_out' style='margin-left:2%'>
-                        <div id="main3" style="width:300px;height:340px"></div>
+                <div class='echart_out' >
+                        <div id="main3" style="width:100%;height:340px"></div>
                 </div>
-                <div class='echart_out' style='margin-left:2%'>
-                        <div id="main4" style="width:300px;height:340px"></div>
+                <div class='echart_out' style='margin-right:2%'>
+                        <div id="main4" style="width:100%;height:340px"></div>
                 </div>
              </div>
         </div>
@@ -184,7 +184,7 @@
                             },
 					},
                     grid: {
-                        left: '20%',
+                        left: '15%',
                         top:'10%',
                         right: '0',
                         bottom: '40%'
@@ -238,7 +238,7 @@
                             },
 					},
                     grid: {
-                        left: '20%',
+                        left: '15%',
                         top:'10%',
                         right: '0',
                         bottom: '40%'
@@ -290,7 +290,7 @@
                             },
 					},
                     grid: {
-                        left: '20%',
+                        left: '15%',
                         top:'10%',
                         right: '0',
                         bottom: '40%'
@@ -342,7 +342,7 @@
                             },
 					},
                     grid: {
-                        left: '20%',
+                        left: '15%',
                         top:'10%',
                         right: '0',
                         bottom: '40%'
@@ -413,6 +413,9 @@
     #app {
         width: 100%;
         height: 100%;
+        background-image:url('./img/bg.png');
+		background-repeat: no-repeat;
+		background-size:100%
     }
 
     .content {
@@ -470,6 +473,7 @@
     }
     .content-bottom{
         height: 30%;
+        
     }
     .circle1{
         width:60px;
@@ -536,7 +540,8 @@
         background: radial-gradient(circle at 70px 70px,#9a86f3,#5b42f2);
     }
     .echart_out{
-        flex:1;
+        width:22.5%;
+        margin-left:2%
     }
     .content-bottom{
         display:flex
