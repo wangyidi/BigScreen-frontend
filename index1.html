@@ -9,6 +9,7 @@
     <script type="text/javascript" src="./js/china.js"></script>
     <script type="text/javascript" src="./js/world.js"></script>
     <script src="./js/jquery.js"></script>
+    <script src="./js/url.js"></script>
     <script type="text/javascript" src="./js/vue.js"></script>
     <script>setTimeout(function(){location.href="index2.html"},900000);</script>
     <!-- 引入组件库 -->
@@ -150,7 +151,7 @@
             getdata(){
                 var that = this
                 $.ajax({
-                    url: 'http://47.105.195.101:9090/info/getFirstPage ',
+                    url: urlPath+'info/getFirstPage ',
                     dataType: 'json',
                     method: 'post',
                     data: '',

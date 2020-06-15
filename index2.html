@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="./js/china.js"></script>
 	<script type="text/javascript" src="./js/world.js"></script>
 	<script src="./js/jquery.js"></script>
+	<script src="./js/url.js"></script>
 	<script type="text/javascript" src="./js/vue.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<!-- 引入组件库 -->
@@ -1137,7 +1138,7 @@
 			getdata(){
 			var that = this
 			$.ajax({
-                url: 'http://47.105.195.101:9090/getSecondPageData',
+                url: urlPath+'getSecondPageData',
                 dataType: 'json',
                 method: 'post',
                 data: '',
