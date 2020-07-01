@@ -30,11 +30,11 @@
 								</div>
 								<div class='left_content2'>
 									<span style='display:block;margin-top:20px;color:#5bbf95'>参训人数覆盖率</span>
-									<span style='color:#5bbf95;font-size:48px;'>{{newJoinCount}}%</span>
+									<span style='color:#5bbf95;font-size:48px;'>{{trainCount}}%</span>
 								</div>
 								<div class='left_content3'>
 									<span style='display:block;margin-top:20px;color:#DA342B'>新员工已参训人数</span>
-									<span style='color:#DA342B;font-size:48px;'>{{trainCount}}</span>
+									<span style='color:#DA342B;font-size:48px;'>{{newJoinCount}}</span>
 								</div>
 					</div>
 					<div class='content_top_center'>
@@ -173,7 +173,7 @@
 		},
 		methods: {
 			drowbar(x,y,z) {
-				console.log(z)
+				console.log(x,y,z)
 				var myChartbar = echarts.init(document.getElementById('mainbar'));
 				optionbar = {
 					title: {
@@ -192,7 +192,7 @@
 						bottom: '20%'
 					},
 					legend: {
-						data: ['参训人次比率','参训人数'],
+						data: ['参数人次覆盖率','参训人数覆盖率'],
 						top:'10%',
 						textStyle:{
 							color: '#ffffff'//字体颜色
@@ -227,31 +227,18 @@
 						name: '',
 						min: 0,
 						position: 'left',
-						axisLabel: {
-							textStyle:{
-								color:'#fff',  //坐标的字体颜色
-							},
-							formatter: '{value}%'
-						},
-						axisLine:{
-							show:true, //隐藏坐标轴
-							lineStyle:{
-								color:'#fff',  //坐标轴的颜色
-							},
-						},
 						splitLine:{//去除网格线
 							show:false
 						},
-					}, {
-						type: 'value',
-						name: '',
-						min: 0,
-						position: 'right',
+						axisTick:{
+							lineStyle:{color:'rgb(150,150,150)'}    // x轴刻度的颜色
+							}, 
 						axisLabel: {
 							textStyle:{
 								color:'#fff',  //坐标的字体颜色
 							},
-							formatter: '{value}'
+							formatter: '{value}%',
+							
 						},
 						axisLine:{
 							show:true, //隐藏坐标轴
@@ -261,76 +248,46 @@
 						},
 					}],
 					series: [{
-						name: '参训人次比率',
+						name: '参数人次覆盖率',
 						type: 'line',
 						smooth:true,
 						label: {
 							normal: {
 								show: false,
 								position: 'top',
+								formatter: "{c}%"
 							}
 						},
-						color:'#47D8BE',
+						color: '#47D8BE',
 						lineStyle: {
 							normal: {
 								width: 5,
-								color: {
-									type: 'linear',
-			
-									colorStops: [{
-											offset: 0,
-											color: '#47D8BE' // 0% 处的颜色
-										},
-										{
-											offset: 0.4,
-											color: '#47D8BE' // 100% 处的颜色
-										}, {
-											offset: 1,
-											color: '#47D8BE' // 100% 处的颜色
-										}
-									],
-									globalCoord: false // 缺省为 false
-								},
+								color: '#47D8BE',
 								shadowColor: 'rgba(71,216,190, 0.5)',
 								shadowBlur: 10,
 								shadowOffsetY: 7
 							}
 						},
+						
 						data: y
-					},{
-						name: '参训人数',
+					}, {
+						name: '参训人数覆盖率',
+						
 						type: 'line',
-						yAxisIndex: 1,
 						smooth:true,
-						barWidth: 10,
 						label: {
 							normal: {
 								show: false,
-								position: 'top'
+								position: 'top',
+								formatter: "{c}%"
 							}
 						},
-						color:'#ff9191',
+						color: '#F9A589',
 						lineStyle: {
 							normal: {
 								width: 5,
-								color: {
-									type: 'linear',
-			
-									colorStops: [{
-											offset: 0,
-											color: '#ff9191' // 0% 处的颜色
-										},
-										{
-											offset: 0.4,
-											color: '#ff9191' // 100% 处的颜色
-										}, {
-											offset: 1,
-											color: '#ff9191' // 100% 处的颜色
-										}
-									],
-									globalCoord: false // 缺省为 false
-								},
-								shadowColor: 'rgba(71,216,190, 0.5)',
+								color: '#F9A589',
+								shadowColor: 'rgba(249,165,137, 0.5)',
 								shadowBlur: 10,
 								shadowOffsetY: 7
 							}
@@ -356,7 +313,7 @@
 					color: ['#b43e3a','#c98770','#77a8b1','#F76F01','#FFE400','#F76F01','#01A4F7','#FE2C8A'], 
 					tooltip: {
 						trigger: 'item',
-						formatter: "{a} <br/>{b}: {c} ({d}%)"
+						formatter: "{a} <br/>{b}: {c}%"
 					},
 	
 					series: [
@@ -372,7 +329,7 @@
 								
 								normal: {									
 									show: true,
-									formatter: '{b}\n({d}%)',
+									formatter: '{b}\n({c}%)',
 								},
 
 							},
